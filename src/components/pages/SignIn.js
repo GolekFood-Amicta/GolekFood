@@ -56,7 +56,7 @@ class SignIn extends React.Component {
                                 <input type="checkbox" className="accent-GF-soft-green w-5 h-5 border-2 border-GF-soft-green rounded-xl focus:outline-none hover:border-GF-soft-green hover:ring-2 hover:ring-GF-soft-green" />
                                 <span className="text-xs font-normal">Remember me</span>
                             </div>
-                            <a href="#" className="text-xs hover:font-medium hover:text-GF-green">Forgot Password?</a>
+                            <Link className="text-xs hover:font-medium hover:text-GF-green">Forgot Password?</Link>
                         </div>
                         <div className="h-8" />
                         <button className="w-full bg-GF-soft-green text-white py-4 rounded-xl hover:bg-GF-green">Sign In</button>
