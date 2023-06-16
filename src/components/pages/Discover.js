@@ -1,6 +1,7 @@
 import React from "react";
 import NavBar from "../NavBar";
 import Feedback from "../Feedback";
+import Slider from "../Slider";
 
 function Level100({ level }) {
     if (level >= 0 && level < 33) {
@@ -90,20 +91,16 @@ class Discover extends React.Component {
                     <div className="w-1/3">
                         <p className="font-medium">Discover your next favorite healthy meal with just a <span className="font-bold">few clicks</span> with GolekFoods.</p>
                         <div className="my-16 grid grid-cols-10 gap-2 items-center">
-                            <p className="col-span-10">Fat</p>
-                            <input type="range" value={this.state.fat} onChange={this.onFatChangeEventHandler} min={0} max={100} step={1} className="appearance-none bg-black accent-GF-green h-0.5 col-span-9" />
+                            <Slider sliderTitle={'Fat'} value={this.state.fat} onChange={this.onFatChangeEventHandler} min={0} max={100} />
                             <Level100 level={this.state.fat} />
 
-                            <p className="col-span-10">Calories</p>
-                            <input type="range" value={this.state.calories} onChange={this.onCaloriesChangeEventHandler} min={0} max={1000} className="appearance-none bg-black accent-GF-green h-0.5 col-span-9" />
+                            <Slider sliderTitle={'Calories'} value={this.state.calories} onChange={this.onCaloriesChangeEventHandler} min={0} max={1000} />
                             <Level1000 level={this.state.calories} />
 
-                            <p className="col-span-10">Proteins</p>
-                            <input type="range" value={this.state.proteins} onChange={this.onProteinsChangeEventHandler} min={0} max={100} className="appearance-none bg-black accent-GF-green h-0.5 col-span-9" />
+                            <Slider sliderTitle={'Proteins'} value={this.state.proteins} onChange={this.onProteinsChangeEventHandler} min={0} max={100} />
                             <Level100 level={this.state.proteins} />
 
-                            <p className="col-span-10">Carbohydrates</p>
-                            <input type="range" value={this.state.carbohydrates} onChange={this.onCarbohydratesChangeEventHandler} min={0} max={1000} className="appearance-none bg-black accent-GF-green h-0.5 col-span-9" />
+                            <Slider sliderTitle={'Carbohydrates'} value={this.state.carbohydrates} onChange={this.onCarbohydratesChangeEventHandler} min={0} max={1000} />
                             <Level1000 level={this.state.carbohydrates} />
                         </div>
                         <button className="font-medium text-white bg-GF-green w-full py-4 rounded-xl hover:bg-opacity-75">Discover Foods</button>
