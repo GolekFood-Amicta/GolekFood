@@ -2,7 +2,7 @@ import React from "react";
 
 function Logo() {
     return (
-        <p id="logo" className="text-2xl font-black text-GF-green">Golek<span className="text-black">Foods</span></p>
+        <p className="logo text-2xl font-black text-GF-green">Golek<span className="logo text-black">Foods</span></p>
     );
 }
 
