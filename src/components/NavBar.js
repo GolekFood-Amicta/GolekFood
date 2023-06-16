@@ -1,21 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Logo from "./Logo";
 
 function NavBar() {
     return (
         <nav className="flex justify-between items-center">
+            <Logo />
             <ul className="flex space-x-8 font-semibold">
                 <li>
-                    <Link className="hover:font-extrabold focus:font-extrabold">Home</Link>
+                    <Link className="hover:font-extrabold focus:font-extrabold focus:text-GF-green">Home</Link>
                 </li>
                 <li>
-                    <Link className="hover:font-extrabold focus:font-extrabold">Discover</Link>
+                    <Link className="hover:font-extrabold focus:font-extrabold focus:text-GF-green">Discover</Link>
                 </li>
                 <li>
-                    <Link className="hover:font-extrabold focus:font-extrabold">News</Link>
+                    <Link className="hover:font-extrabold focus:font-extrabold focus:text-GF-green">News</Link>
                 </li>
                 <li>
-                    <Link className="hover:font-extrabold focus:font-extrabold">Data</Link>
+                    <Link className="hover:font-extrabold focus:font-extrabold focus:text-GF-green">Data</Link>
                 </li>
             </ul>
             <Link to={"/SignIn"}>
