@@ -127,7 +127,7 @@ class Discover extends React.Component {
                             {this.state.advanceMode ? <InputNumber value={this.state.calories} onChange={this.onCaloriesChangeEventHandler} /> : <Level1000 level={this.state.calories} />}
 
                             <Slider sliderTitle={'Proteins'} value={this.state.proteins} onChange={this.onProteinsChangeEventHandler} min={0} max={100} />
-                            {this.state.advanceMode ? <InputNumber value={this.state.proteins} onChange={this.onProteinsChangeEventHandler} /> : <Level100 level={this.state.onProteinsChangeEventHandler} />}
+                            {this.state.advanceMode ? <InputNumber value={this.state.proteins} onChange={this.onProteinsChangeEventHandler} /> : <Level100 level={this.state.proteins} />}
 
                             <Slider sliderTitle={'Carbohydrates'} value={this.state.carbohydrates} onChange={this.onCarbohydratesChangeEventHandler} min={0} max={1000} />
                             {this.state.advanceMode ? <InputNumber value={this.state.carbohydrates} onChange={this.onCarbohydratesChangeEventHandler} /> : <Level1000 level={this.state.carbohydrates} />}
