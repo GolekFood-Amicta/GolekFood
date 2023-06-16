@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       colors: {
         'GF-grey': '#3D3D3D',
-        'GF-green': '#046B3B',
+        'GF-green': '#219653',
         'GF-soft-green': '#5F7161'
       }
     },
