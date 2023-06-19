@@ -2,8 +2,8 @@ import React from "react";
 import NavBar from "../NavBar";
 import Feedback from "../Feedback";
 import Slider from "../Slider";
-import FoodItem from "../FoodItem";
 import FoodCarousel from "../FoodCarousel";
+import feedback_icon from "../../assets/feedback_icon.svg";
 
 function Level100({ level }) {
     if (level >= 0 && level < 33) {
@@ -147,7 +147,7 @@ class Discover extends React.Component {
                 </div>
                 <button onClick={this.toggleShowFeedback} className="flex space-x-4 fixed bottom-8 right-8 bg-white px-4 py-2 items-center justify-center rounded-xl hover:border-b-GF-green hover:border-2">
                     <span className="font-medium">Send us feedback</span>
-                    <img src={require('../../assets/feedback_icon.png')} alt="feedback" />
+                    <img src={feedback_icon} alt="feedback" />
                 </button>
             </div>
         );

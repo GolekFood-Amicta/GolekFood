@@ -1,5 +1,6 @@
 import React from "react";
 import Logo from "../Logo";
+import vector from '../../assets/vector/vector-signup.svg';
 
 class SignUp extends React.Component {
     constructor(props) {
@@ -54,8 +55,7 @@ class SignUp extends React.Component {
         return (
             <div className="flex">
                 <div className="w-full">
-                    <div className="fixed bg-black w-2/5 h-5/6 mt-16 ml-16 rounded-xl" />
-                    <div className="fixed bg-GF-grey w-2/5 h-5/6 mt-8 ml-8 rounded-xl" />
+                    <img src={vector} alt="vector" className="fixed w-2/5 m-8" />
                 </div>
                 <div className="w-full pr-8">
                     <div className="text-right mt-8 mb-8">

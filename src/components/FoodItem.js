@@ -1,10 +1,11 @@
 import React from "react";
+import favorite_icon from "../assets/favorite_icon.svg"
 
 function FoodItem({ foodName, foodImage, fatValue, calValue, proValue, carboValue }) {
     return (
         <div className="relative w-72 h-96">
             <button className="absolute right-0 m-4">
-                <img src={require('../assets/favorite_icon.png')} alt="favorite" />
+                <img src={favorite_icon} alt="favorite" />
             </button>
             <div className="absolute w-full h-1/2 bottom-0 rounded-2xl backdrop-blur text-white">
                 <p className="pt-2 font-medium text-lg text-center">{foodName}</p>

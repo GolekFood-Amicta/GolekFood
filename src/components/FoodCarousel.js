@@ -1,7 +1,8 @@
 import React from "react";
 import Carousel, { Dots, arrowsPlugin, slidesToShowPlugin } from "@brainhubeu/react-carousel";
 import '@brainhubeu/react-carousel/lib/style.css';
-
+import left_arrow from "../assets/left-arrow.svg";
+import right_arrow from "../assets/right-arrow.svg";
 import FoodItem from "./FoodItem";
 
 const foodItem = [
@@ -80,10 +81,10 @@ class FoodCarousel extends React.Component {
                         resolve: arrowsPlugin,
                         options: {
                             arrowLeft: <button>
-                                <img src={require('../assets/left-arrow.png')} alt="left-arrow" />
+                                <img src={left_arrow} alt="left-arrow" />
                             </button>,
                             arrowRight: <button>
-                                <img src={require('../assets/right-arrow.png')} alt="right-arrow" />
+                                <img src={right_arrow} alt="right-arrow" />
                             </button>,
                             addArrowClickHandler: true,
                         }
