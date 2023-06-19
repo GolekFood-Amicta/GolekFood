@@ -55,15 +55,6 @@ const foodItem = [
     />
 ];
 
-const testArray = [
-    <p>Slide 1</p>,
-    <p>Slide 2</p>,
-    <p>Slide 3</p>,
-    <p>Slide 4</p>,
-    <p>Slide 5</p>,
-    <p>Slide 6</p>
-]
-
 class FoodCarousel extends React.Component {
     constructor() {
         super();
