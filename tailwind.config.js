@@ -8,9 +8,8 @@ module.exports = {
         track: 'h-1 bg-gray-200'
       },
       colors: {
-        'GF-grey': '#3D3D3D',
-        'GF-green': '#219653',
-        'GF-soft-green': '#5F7161'
+        'GF-grey': '#575757',
+        'GF-green': '#219653'
       }
     },
   },

@@ -4,20 +4,20 @@ import Logo from "./Logo";
 
 function NavBar() {
     return (
-        <nav className="sticky z-[999] top-8 flex justify-between items-center backdrop-blur">
+        <nav className="sticky z-[999] top-0 flex justify-between items-center backdrop-blur px-16 py-8">
             <Logo />
             <ul className="flex space-x-8 font-semibold">
                 <li>
-                    <Link to={"/"} className="hover:font-extrabold focus:font-extrabold focus:text-GF-green">Home</Link>
+                    <Link to={"/"} className="text-GF-grey hover:font-extrabold focus:font-extrabold focus:text-GF-green">Home</Link>
                 </li>
                 <li>
-                    <Link to={"/Discover"} className="hover:font-extrabold focus:font-extrabold focus:text-GF-green">Discover</Link>
+                    <Link to={"/Discover"} className="text-GF-grey hover:font-extrabold focus:font-extrabold focus:text-GF-green">Discover</Link>
                 </li>
                 <li>
-                    <Link className="hover:font-extrabold focus:font-extrabold focus:text-GF-green">News</Link>
+                    <Link to={"/News"} className="text-GF-grey hover:font-extrabold focus:font-extrabold focus:text-GF-green">News</Link>
                 </li>
                 <li>
-                    <Link className="hover:font-extrabold focus:font-extrabold focus:text-GF-green">Data</Link>
+                    <Link className="text-GF-grey hover:font-extrabold focus:font-extrabold focus:text-GF-green">Data</Link>
                 </li>
             </ul>
             <Link to={"/SignIn"}>

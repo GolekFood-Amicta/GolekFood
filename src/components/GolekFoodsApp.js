@@ -4,6 +4,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Discover from "./pages/Discover";
 import Home from "./pages/Home";
+import News from "./pages/News";
 
 function GolekFoodsApp() {
   return (
@@ -11,6 +12,7 @@ function GolekFoodsApp() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/discover" element={<Discover />} />
+        <Route path="/news" element={<News />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>

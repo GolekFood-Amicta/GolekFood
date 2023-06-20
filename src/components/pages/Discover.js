@@ -111,10 +111,10 @@ class Discover extends React.Component {
 
     render() {
         return (
-            <div className="px-16 py-8">
+            <div className="">
                 <NavBar />
                 {this.state.showFeedback ? <Feedback toggle={this.toggleShowFeedback} /> : null}
-                <div className={`${this.state.showFeedback ? 'blur' : 'blur-none'} z-0 flex py-16`}>
+                <div className={`${this.state.showFeedback ? 'blur' : 'blur-none'} z-0 flex px-16 pt-8`}>
                     <div className="w-1/3">
                         <p className="font-medium">Discover your next favorite healthy meal with just a <span className="font-bold">few clicks</span> with GolekFoods.</p>
                         <div className="flex space-x-2 my-8">

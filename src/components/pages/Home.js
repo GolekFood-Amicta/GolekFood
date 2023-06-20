@@ -3,12 +3,12 @@ import NavBar from "../NavBar";
 
 function Home() {
     return (
-        <div className="px-16 py-8">
+        <div className="">
             <NavBar />
-            <div className="flex">
-                <div className="w-full"></div>
-                <div></div>
-            </div>
+            <header className="flex">
+                <div className="w-1/2"></div>
+                <div className="w-1/2"></div>
+            </header>
         </div>
     );
 }

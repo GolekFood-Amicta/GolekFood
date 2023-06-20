@@ -54,10 +54,10 @@ class SignUp extends React.Component {
     render() {
         return (
             <div className="flex">
-                <div className="w-full">
+                <div className="w-1/2">
                     <img src={vector} alt="vector" className="fixed w-2/5 m-8" />
                 </div>
-                <div className="w-full pr-8">
+                <div className="w-1/2 pr-8">
                     <div className="text-right mt-8 mb-8">
                         <Logo />
                     </div>
