@@ -111,7 +111,7 @@ class Discover extends React.Component {
 
     render() {
         return (
-            <div className="">
+            <div>
                 <NavBar />
                 {this.state.showFeedback ? <Feedback toggle={this.toggleShowFeedback} /> : null}
                 <div className={`${this.state.showFeedback ? 'blur' : 'blur-none'} z-0 flex px-16 pt-8`}>
