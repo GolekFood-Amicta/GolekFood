@@ -9,6 +9,7 @@ module.exports = {
       },
       colors: {
         'GF-grey': '#575757',
+        'GF-light-grey': '#828282',
         'GF-green': '#219653'
       }
     },
