@@ -11,13 +11,13 @@ function FoodItem({ foodName, foodImage, fatValue, calValue, proValue, carboValu
                 <p className="pt-2 font-medium text-lg text-center">{foodName}</p>
                 <div className="p-4 grid grid-cols-6 gap-2">
                     <span className="col-span-2">{fatValue} g</span>
-                    <span className="col-span-4">Fat</span>
-                    <span className="col-span-2">{calValue} Cal</span>
-                    <span className="col-span-4">Calories</span>
+                    <span className="col-span-4">Lemak</span>
+                    <span className="col-span-2">{calValue} kal</span>
+                    <span className="col-span-4">Kalori</span>
                     <span className="col-span-2">{proValue} g</span>
-                    <span className="col-span-4">Proteins</span>
+                    <span className="col-span-4">Protein</span>
                     <span className="col-span-2">{carboValue} g</span>
-                    <span className="col-span-4">Carbohydrates</span>
+                    <span className="col-span-4">Karbohidrat</span>
                 </div>
             </div>
             <img src={foodImage} alt="food" className="w-72 h-96 object-cover rounded-2xl" />
