@@ -108,7 +108,8 @@ class Discover extends React.Component {
         }
 
         try {
-            const response = await ml_api.post('advpredict', { food });
+            const response = await ml_api.post('advpredict', food);
+            this.setState(response.data);
             console.log(response);
         } catch (error) {
             console.log(error);
@@ -175,19 +176,19 @@ class Discover extends React.Component {
                             <Carousel
                                 value={this.state.value}
                                 onChange={this.onChangeValue}
-                                slides={
-                                    this.state.foods.map((item) => (
-                                        <FoodItem
-                                            key={item.id_food}
-                                            foodName={item.nama}
-                                            foodImage={item.gambar}
-                                            fatValue={item.lemak}
-                                            calValue={item.energi}
-                                            proValue={item.protein}
-                                            carboValue={item.karbohidrat}
-                                        />
-                                    ))
-                                }
+                                // slides={
+                                //     this.state.foods.map((item) => (
+                                //         <FoodItem
+                                //             key={item.id_food}
+                                //             foodName={item.nama}
+                                //             foodImage={item.gambar}
+                                //             fatValue={item.lemak}
+                                //             calValue={item.energi}
+                                //             proValue={item.protein}
+                                //             carboValue={item.karbohidrat}
+                                //         />
+                                //     ))
+                                // }
                                 plugins={[
                                     'infinite',
                                     {
@@ -209,7 +210,19 @@ class Discover extends React.Component {
                                         }
                                     }
                                 ]}
-                            />
+                            >
+                                {this.state.foods.map((item) => (
+                                    <FoodItem
+                                        key={item.id_food}
+                                        foodName={item.nama}
+                                        foodImage={item.gambar}
+                                        fatValue={item.lemak}
+                                        calValue={item.energi}
+                                        proValue={item.protein}
+                                        carboValue={item.karbohidrat}
+                                    />
+                                ))}
+                            </Carousel>
                         </div>
                     </div>
                 </div>
