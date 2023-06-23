@@ -2,8 +2,12 @@ import React from "react";
 import NavBar from "../NavBar";
 import Feedback from "../Feedback";
 import Slider from "../Slider";
-import FoodCarousel from "../FoodCarousel";
+import Carousel, { arrowsPlugin, slidesToShowPlugin } from "@brainhubeu/react-carousel";
+import FoodItem from "../FoodItem";
+import left_arrow from "../../assets/left-arrow.svg";
+import right_arrow from "../../assets/right-arrow.svg";
 import feedback_icon from "../../assets/feedback_icon.svg";
+import ml_api from "../../api/ml_api";
 
 function Level100({ level }) {
     if (level >= 0 && level < 33) {
@@ -41,7 +45,9 @@ class Discover extends React.Component {
             proteins: 0.0,
             carbohydrates: 0.0,
             showFeedback: false,
-            advanceMode: false
+            advanceMode: false,
+            value: 0,
+            foods: []
         }
 
         this.onFatChangeEventHandler = this.onFatChangeEventHandler.bind(this);
@@ -51,6 +57,8 @@ class Discover extends React.Component {
         this.toggleShowFeedback = this.toggleShowFeedback.bind(this);
         this.toggleBasicMode = this.toggleBasicMode.bind(this);
         this.toggleAdvanceMode = this.toggleAdvanceMode.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.onChangeValue = this.onChangeValue.bind(this);
     }
 
     onFatChangeEventHandler(event) {
@@ -83,6 +91,28 @@ class Discover extends React.Component {
                 carbohydrates: event.target.value,
             }
         })
+    }
+
+    onChangeValue(value) {
+        this.setState({ value });
+    }
+
+    async handleSubmit(event) {
+        event.preventDefault();
+
+        const food = {
+            energi: this.state.calories,
+            protein: this.state.proteins,
+            lemak: this.state.fat,
+            karbohidrat: this.state.carbohydrates
+        }
+
+        try {
+            const response = await ml_api.post('advpredict', { food });
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     toggleShowFeedback() {
@@ -122,7 +152,7 @@ class Discover extends React.Component {
                             <button onClick={this.toggleAdvanceMode} className="w-1/2 bg-white border-2 border-black rounded-xl py-2 font-medium focus:bg-black focus:text-white">Lanjutan</button>
                         </div>
 
-                        <div className="mb-16 mt-8 grid grid-cols-10 gap-2 items-center">
+                        <form onSubmit={this.handleSubmit} className="mb-16 mt-8 grid grid-cols-10 gap-2 items-center">
                             <Slider sliderTitle={'Lemak'} value={this.state.fat} onChange={this.onFatChangeEventHandler} min={0} max={100} />
                             {this.state.advanceMode ? <InputNumber value={this.state.fat} onChange={this.onFatChangeEventHandler} /> : <Level100 level={this.state.fat} />}
 
@@ -134,14 +164,52 @@ class Discover extends React.Component {
 
                             <Slider sliderTitle={'Karbohidrat'} value={this.state.carbohydrates} onChange={this.onCarbohydratesChangeEventHandler} min={0} max={1000} />
                             {this.state.advanceMode ? <InputNumber value={this.state.carbohydrates} onChange={this.onCarbohydratesChangeEventHandler} /> : <Level1000 level={this.state.carbohydrates} />}
-                        </div>
+                            <button className="font-medium text-white bg-GF-green w-full py-4 rounded-xl hover:bg-opacity-75">Temukan Makanan</button>
+                        </form>
 
-                        <button className="font-medium text-white bg-GF-green w-full py-4 rounded-xl hover:bg-opacity-75">Temukan Makanan</button>
                     </div>
                     <div className="w-2/3 pl-4">
                         <p className="font-medium text-center text-xl mb-16">Rekomendasi</p>
                         <div className="w-11/12 h-fit m-auto">
-                            <FoodCarousel />
+                            {/* <FoodCarousel /> */}
+                            <Carousel
+                                value={this.state.value}
+                                onChange={this.onChangeValue}
+                                slides={
+                                    this.state.foods.map((item) => (
+                                        <FoodItem
+                                            key={item.id_food}
+                                            foodName={item.nama}
+                                            foodImage={item.gambar}
+                                            fatValue={item.lemak}
+                                            calValue={item.energi}
+                                            proValue={item.protein}
+                                            carboValue={item.karbohidrat}
+                                        />
+                                    ))
+                                }
+                                plugins={[
+                                    'infinite',
+                                    {
+                                        resolve: arrowsPlugin,
+                                        options: {
+                                            arrowLeft: <button>
+                                                <img src={left_arrow} alt="left-arrow" />
+                                            </button>,
+                                            arrowRight: <button>
+                                                <img src={right_arrow} alt="right-arrow" />
+                                            </button>,
+                                            addArrowClickHandler: true,
+                                        }
+                                    },
+                                    {
+                                        resolve: slidesToShowPlugin,
+                                        options: {
+                                            numberOfSlides: 2
+                                        }
+                                    }
+                                ]}
+                            />
                         </div>
                     </div>
                 </div>
