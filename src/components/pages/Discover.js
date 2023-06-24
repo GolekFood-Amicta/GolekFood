@@ -162,9 +162,8 @@ class Discover extends React.Component {
 
                             <Slider sliderTitle={'Karbohidrat'} value={this.state.carbohydrates} onChange={this.onCarbohydratesChangeEventHandler} min={0} max={1000} />
                             {this.state.advanceMode ? <InputNumber value={this.state.carbohydrates} onChange={this.onCarbohydratesChangeEventHandler} /> : <Level1000 level={this.state.carbohydrates} />}
-                            <button className="font-medium text-white bg-GF-green w-full py-4 rounded-xl hover:bg-opacity-75">Temukan Makanan</button>
+                            <button className="font-medium col-span-10 text-white bg-GF-green w-full py-4 rounded-xl hover:bg-opacity-75">Temukan Makanan</button>
                         </form>
-
                     </div>
                     <div className="w-2/3 pl-4">
                         <p className="font-medium text-center text-xl mb-16">Rekomendasi</p>
@@ -191,12 +190,12 @@ class Discover extends React.Component {
                                     {
                                         resolve: arrowsPlugin,
                                         options: {
-                                            arrowLeft: <button>
+                                            arrowLeft: this.state.foods.length !== 0 ? <button>
                                                 <img src={left_arrow} alt="left-arrow" />
-                                            </button>,
-                                            arrowRight: <button>
+                                            </button> : <></>,
+                                            arrowRight: this.state.foods.length !== 0 ? <button>
                                                 <img src={right_arrow} alt="right-arrow" />
-                                            </button>,
+                                            </button> : <></>,
                                             addArrowClickHandler: true,
                                         }
                                     },
