@@ -20,7 +20,7 @@ function FoodItem({ foodName, foodImage, fatValue, calValue, proValue, carboValu
                     <span className="col-span-4">Karbohidrat</span>
                 </div>
             </div>
-            <img src={foodImage} alt="food" className="w-72 h-96 object-cover rounded-2xl" />
+            <img src={foodImage} alt="food" className="w-72 h-96 object-cover  border-2 border-[#5F7161E5] border-opacity-90 rounded-2xl" />
         </div>
     );
 }
