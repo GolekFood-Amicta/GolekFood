@@ -8,6 +8,7 @@ import left_arrow from "../../assets/left-arrow.svg";
 import right_arrow from "../../assets/right-arrow.svg";
 import feedback_icon from "../../assets/feedback_icon.svg";
 import ml_api from "../../api/ml_api";
+import '@brainhubeu/react-carousel/lib/style.css';
 
 function Level100({ level }) {
     if (level >= 0 && level < 33) {
@@ -110,11 +111,6 @@ class Discover extends React.Component {
         const response = await ml_api.post('advpredict', food);
         this.setState(response.data);
         this.state.foods = response.data;
-        // console.log(this.state.foods.data);
-
-        this.state.foods.data.map((item) => (
-            console.log(item.nama)
-        ))
 
     }
 
@@ -167,9 +163,8 @@ class Discover extends React.Component {
 
                             <Slider sliderTitle={'Karbohidrat'} value={this.state.carbohydrates} onChange={this.onCarbohydratesChangeEventHandler} min={0} max={1000} />
                             {this.state.advanceMode ? <InputNumber value={this.state.carbohydrates} onChange={this.onCarbohydratesChangeEventHandler} /> : <Level1000 level={this.state.carbohydrates} />}
-                            <button className="font-medium text-white bg-GF-green w-full py-4 rounded-xl hover:bg-opacity-75">Temukan Makanan</button>
+                            <button className="font-medium col-span-10 text-white bg-GF-green w-full py-4 rounded-xl hover:bg-opacity-75">Temukan Makanan</button>
                         </form>
-
                     </div>
                     <div className="w-2/3 pl-4">
                         <p className="font-medium text-center text-xl mb-16">Rekomendasi</p>
@@ -179,7 +174,6 @@ class Discover extends React.Component {
                                 value={this.state.value}
                                 onChange={this.onChangeValue}
                                 slides={
-                                    // if state.foods.data is not empty
                                     this.state.foods.data ? this.state.foods.data.map((item) => (
                                         <FoodItem
                                             key={item.id_food}
@@ -197,12 +191,12 @@ class Discover extends React.Component {
                                     {
                                         resolve: arrowsPlugin,
                                         options: {
-                                            arrowLeft: <button>
+                                            arrowLeft: this.state.foods.length !== 0 ? <button>
                                                 <img src={left_arrow} alt="left-arrow" />
-                                            </button>,
-                                            arrowRight: <button>
+                                            </button> : <></>,
+                                            arrowRight: this.state.foods.length !== 0 ? <button>
                                                 <img src={right_arrow} alt="right-arrow" />
-                                            </button>,
+                                            </button> : <></>,
                                             addArrowClickHandler: true,
                                         }
                                     },
