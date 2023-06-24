@@ -1,7 +1,6 @@
 import React from "react";
 import NavBar from "../NavBar";
 import vector from "../../assets/vector/vector-news.svg";
-import NewsItem from "../NewsItem";
 import NewsPaginate from "../NewsPaginate";
 
 function News() {
