@@ -7,7 +7,7 @@ function FoodItem({ foodName, foodImage, fatValue, calValue, proValue, carboValu
             <button className="absolute right-0 m-4">
                 <img src={favorite_icon} alt="favorite" />
             </button>
-            <div className="absolute w-full h-1/2 bottom-0 rounded-2xl backdrop-blur text-white">
+            <div className="absolute w-full h-1/2 bottom-0 rounded-2xl bg-black bg-opacity-50 backdrop-blur text-white">
                 <p className="pt-2 font-medium text-lg text-center">{foodName}</p>
                 <div className="p-4 grid grid-cols-6 gap-2">
                     <span className="col-span-2">{fatValue} g</span>
