@@ -101,19 +101,21 @@ class Discover extends React.Component {
         event.preventDefault();
 
         const food = {
-            energi: this.state.calories,
-            protein: this.state.proteins,
-            lemak: this.state.fat,
-            karbohidrat: this.state.carbohydrates
+            energi: parseInt(this.state.calories),
+            protein: parseInt(this.state.proteins),
+            lemak: parseInt(this.state.fat),
+            karbohidrat: parseInt(this.state.carbohydrates)
         }
 
-        try {
-            const response = await ml_api.post('advpredict', food);
-            this.setState(response.data);
-            console.log(response);
-        } catch (error) {
-            console.log(error);
-        }
+        const response = await ml_api.post('advpredict', food);
+        this.setState(response.data);
+        this.state.foods = response.data;
+        // console.log(this.state.foods.data);
+
+        this.state.foods.data.map((item) => (
+            console.log(item.nama)
+        ))
+
     }
 
     toggleShowFeedback() {
@@ -176,19 +178,20 @@ class Discover extends React.Component {
                             <Carousel
                                 value={this.state.value}
                                 onChange={this.onChangeValue}
-                                // slides={
-                                //     this.state.foods.map((item) => (
-                                //         <FoodItem
-                                //             key={item.id_food}
-                                //             foodName={item.nama}
-                                //             foodImage={item.gambar}
-                                //             fatValue={item.lemak}
-                                //             calValue={item.energi}
-                                //             proValue={item.protein}
-                                //             carboValue={item.karbohidrat}
-                                //         />
-                                //     ))
-                                // }
+                                slides={
+                                    // if state.foods.data is not empty
+                                    this.state.foods.data ? this.state.foods.data.map((item) => (
+                                        <FoodItem
+                                            key={item.id_food}
+                                            foodName={item.nama}
+                                            foodImage={item.gambar}
+                                            fatValue={item.lemak}
+                                            calValue={item.energi}
+                                            proValue={item.protein}
+                                            carboValue={item.karbohidrat}
+                                        />
+                                    )) : null
+                                }
                                 plugins={[
                                     'infinite',
                                     {
@@ -210,19 +213,7 @@ class Discover extends React.Component {
                                         }
                                     }
                                 ]}
-                            >
-                                {this.state.foods.map((item) => (
-                                    <FoodItem
-                                        key={item.id_food}
-                                        foodName={item.nama}
-                                        foodImage={item.gambar}
-                                        fatValue={item.lemak}
-                                        calValue={item.energi}
-                                        proValue={item.protein}
-                                        carboValue={item.karbohidrat}
-                                    />
-                                ))}
-                            </Carousel>
+                            />
                         </div>
                     </div>
                 </div>
