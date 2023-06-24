@@ -41,7 +41,7 @@ function NewsPaginate({ newsItemsPerPage }) {
                 previousLabel="Prev"
                 previousClassName="hover:font-semibold"
                 renderOnZeroPageCount={null}
-                className="flex space-x-10 items-center"
+                className="flex w-full space-x-10 items-center fixed bottom-0 left-0 bg-white pl-16 py-4"
             />
         </>
     );
