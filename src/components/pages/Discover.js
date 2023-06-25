@@ -111,7 +111,6 @@ class Discover extends React.Component {
         const response = await ml_api.post('advpredict', food);
         this.setState(response.data);
         this.state.foods = response.data;
-
     }
 
     toggleShowFeedback() {
@@ -169,7 +168,6 @@ class Discover extends React.Component {
                     <div className="w-2/3 pl-4">
                         <p className="font-medium text-center text-xl mb-16">Rekomendasi</p>
                         <div className="w-11/12 h-fit m-auto">
-                            {/* <FoodCarousel /> */}
                             <Carousel
                                 value={this.state.value}
                                 onChange={this.onChangeValue}
@@ -184,7 +182,7 @@ class Discover extends React.Component {
                                             proValue={item.protein}
                                             carboValue={item.karbohidrat}
                                         />
-                                    )) : null
+                                    )) : <></>
                                 }
                                 plugins={[
                                     'infinite',
