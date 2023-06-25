@@ -8,6 +8,7 @@ import left_arrow from "../../assets/left-arrow.svg";
 import right_arrow from "../../assets/right-arrow.svg";
 import feedback_icon from "../../assets/feedback_icon.svg";
 import ml_api from "../../api/ml_api";
+import be_api from "../../api/be_api";
 import '@brainhubeu/react-carousel/lib/style.css';
 
 function Level100({ level }) {
@@ -60,6 +61,7 @@ class Discover extends React.Component {
         this.toggleAdvanceMode = this.toggleAdvanceMode.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onChangeValue = this.onChangeValue.bind(this);
+        this.resetFoods = this.resetFoods.bind(this);
     }
 
     onFatChangeEventHandler(event) {
@@ -108,9 +110,17 @@ class Discover extends React.Component {
             karbohidrat: parseInt(this.state.carbohydrates)
         }
 
-        const response = await ml_api.post('advpredict', food);
+        const response = await be_api.post('discover-food-adv', food);
         this.setState(response.data);
         this.state.foods = response.data;
+    }
+
+    resetFoods() {
+        this.setState(() => {
+            return {
+                foods: [],
+            }
+        })
     }
 
     toggleShowFeedback() {
@@ -162,7 +172,7 @@ class Discover extends React.Component {
 
                             <Slider sliderTitle={'Karbohidrat'} value={this.state.carbohydrates} onChange={this.onCarbohydratesChangeEventHandler} min={0} max={1000} />
                             {this.state.advanceMode ? <InputNumber value={this.state.carbohydrates} onChange={this.onCarbohydratesChangeEventHandler} /> : <Level1000 level={this.state.carbohydrates} />}
-                            <button className="font-medium col-span-10 text-white bg-GF-green w-full py-4 rounded-xl hover:bg-opacity-75">Temukan Makanan</button>
+                            <button onClick={this.resetFoods} className="font-medium col-span-10 text-white bg-GF-green w-full py-4 rounded-xl hover:bg-opacity-75">Temukan Makanan</button>
                         </form>
                     </div>
                     <div className="w-2/3 pl-4">

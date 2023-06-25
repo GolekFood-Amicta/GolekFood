@@ -4,7 +4,8 @@ const userData = [
         email: 'example@email.com',
         address: 'not defined',
         password: 'password',
-        photo: 'https://picsum.photos/300/200'
+        photo: 'https://picsum.photos/300/200',
+        signed: true
     }
 ];
 
