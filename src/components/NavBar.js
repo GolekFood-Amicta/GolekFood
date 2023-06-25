@@ -24,7 +24,7 @@ function NavBar() {
                 </li>
             </ul>
             {
-                userData[0].signed === true ? <UserComponent name={userData[0].name} image={"https://picsum.photos/200"} /> : <SignInButton />
+                userData[0].signed ? <UserComponent name={userData[0].name} image={"https://picsum.photos/200"} /> : <SignInButton />
             }
         </nav>
     );
