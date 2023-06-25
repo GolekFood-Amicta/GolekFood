@@ -61,6 +61,7 @@ class Discover extends React.Component {
         this.toggleAdvanceMode = this.toggleAdvanceMode.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onChangeValue = this.onChangeValue.bind(this);
+        this.resetFoods = this.resetFoods.bind(this);
     }
 
     onFatChangeEventHandler(event) {
@@ -116,6 +117,14 @@ class Discover extends React.Component {
         event.stopPropagation();
     }
 
+    resetFoods() {
+        this.setState(() => {
+            return {
+                foods: [],
+            }
+        })
+    }
+
     toggleShowFeedback() {
         this.setState(() => {
             return {
@@ -165,7 +174,7 @@ class Discover extends React.Component {
 
                             <Slider sliderTitle={'Karbohidrat'} value={this.state.carbohydrates} onChange={this.onCarbohydratesChangeEventHandler} min={0} max={1000} />
                             {this.state.advanceMode ? <InputNumber value={this.state.carbohydrates} onChange={this.onCarbohydratesChangeEventHandler} /> : <Level1000 level={this.state.carbohydrates} />}
-                            <button className="font-medium col-span-10 text-white bg-GF-green w-full py-4 rounded-xl hover:bg-opacity-75">Temukan Makanan</button>
+                            <button onClick={this.resetFoods} className="font-medium col-span-10 text-white bg-GF-green w-full py-4 rounded-xl hover:bg-opacity-75">Temukan Makanan</button>
                         </form>
                     </div>
                     <div className="w-2/3 pl-4">
