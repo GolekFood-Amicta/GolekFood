@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
+import userData from "../data/UserData";
+import SignInButton from "./SignInButton";
+import UserComponent from "./UserComponent";
 
 function NavBar() {
     return (
@@ -20,11 +23,9 @@ function NavBar() {
                     <Link className="text-GF-grey hover:font-extrabold focus:font-extrabold focus:text-GF-green">Data</Link>
                 </li>
             </ul>
-            <Link to={"/SignIn"}>
-                <button className="font-medium border-2 border-black px-6 py-2 rounded-xl hover:text-white hover:bg-GF-green hover:border-GF-green">
-                    Masuk
-                </button>
-            </Link>
+            {
+                userData[0].signed === true ? <UserComponent name={userData[0].name} image={"https://picsum.photos/200"} /> : <SignInButton />
+            }
         </nav>
     );
 }

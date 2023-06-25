@@ -8,6 +8,7 @@ import left_arrow from "../../assets/left-arrow.svg";
 import right_arrow from "../../assets/right-arrow.svg";
 import feedback_icon from "../../assets/feedback_icon.svg";
 import ml_api from "../../api/ml_api";
+import be_api from "../../api/be_api";
 import '@brainhubeu/react-carousel/lib/style.css';
 
 function Level100({ level }) {
@@ -108,7 +109,7 @@ class Discover extends React.Component {
             karbohidrat: parseInt(this.state.carbohydrates)
         }
 
-        const response = await ml_api.post('advpredict', food);
+        const response = await be_api.post('discover-food-adv', food);
         this.setState(response.data);
         this.state.foods = response.data;
         console.log(this.state.foods);
