@@ -20,11 +20,11 @@ function NavBar() {
                     <Link to={"/News"} className="text-GF-grey hover:font-extrabold focus:font-extrabold focus:text-GF-green">Berita</Link>
                 </li>
                 <li>
-                    <Link className="text-GF-grey hover:font-extrabold focus:font-extrabold focus:text-GF-green">Data</Link>
+                    <Link to={"/Data"} className="text-GF-grey hover:font-extrabold focus:font-extrabold focus:text-GF-green">Data</Link>
                 </li>
             </ul>
             {
-                userData[0].signed === true ? <UserComponent name={userData[0].name} image={"https://picsum.photos/200"} /> : <SignInButton />
+                userData[0].signed ? <UserComponent name={userData[0].name} image={"https://picsum.photos/200"} /> : <SignInButton />
             }
         </nav>
     );
