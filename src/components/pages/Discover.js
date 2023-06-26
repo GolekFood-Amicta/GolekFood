@@ -153,7 +153,7 @@ class Discover extends React.Component {
                 {this.state.showFeedback ? <Feedback toggle={this.toggleShowFeedback} /> : null}
                 <div className={`${this.state.showFeedback ? 'blur' : 'blur-none'} z-0 flex px-16 pt-8`}>
                     <div className="w-1/3">
-                        <p className="font-medium">Temukan makanan sehat favorit dengan <span className="font-bold">GolekFoods</span></p>
+                        <p className="font-medium">Temukan makanan sehat favorit dengan <span className="font-bold">GolekFood</span></p>
                         <div className="flex space-x-2 my-8">
                             <button onClick={this.toggleBasicMode} className="w-1/2 bg-white border-2 border-black rounded-xl py-2 font-medium focus:bg-black focus:text-white">Dasar</button>
                             <button onClick={this.toggleAdvanceMode} className="w-1/2 bg-white border-2 border-black rounded-xl py-2 font-medium focus:bg-black focus:text-white">Lanjutan</button>
