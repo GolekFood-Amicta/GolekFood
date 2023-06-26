@@ -20,7 +20,7 @@ function NavBar() {
                     <Link to={"/News"} className="text-GF-grey hover:font-extrabold focus:font-extrabold focus:text-GF-green">Berita</Link>
                 </li>
                 <li>
-                    <Link className="text-GF-grey hover:font-extrabold focus:font-extrabold focus:text-GF-green">Data</Link>
+                    <Link to={"/Data"} className="text-GF-grey hover:font-extrabold focus:font-extrabold focus:text-GF-green">Data</Link>
                 </li>
             </ul>
             {
