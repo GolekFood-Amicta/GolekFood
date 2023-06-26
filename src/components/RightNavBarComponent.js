@@ -5,11 +5,12 @@ import userData from "../data/UserData";
 import api from "../api/api";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 function RightNavBarComponent() {
     const [user, setUser] = useState(null);
     const [dropdown, setDropdown] = useState(false);
+    const [isLogout, setLogout] = useState(false);
 
     useEffect(() => {
         async function getUser() {
@@ -22,6 +23,10 @@ function RightNavBarComponent() {
 
     const showDropdown = event => {
         setDropdown(dropdown => !dropdown);
+    }
+
+    const toggleLogout = event => {
+        setLogout(isLogout => !isLogout);
     }
 
     if (!user) {
@@ -44,12 +49,16 @@ function RightNavBarComponent() {
                             Profil
                         </Link>
                     </button>
-                    <button className="hover:bg-red-500 hover:bg-opacity-50 transition h-10 rounded-xl">
-                        <Link to={'/'}>
-                            Keluar
-                        </Link>
+                    <button onClick={toggleLogout} className="hover:bg-red-500 hover:bg-opacity-50 transition h-10 rounded-xl">
+                        Keluar
                     </button>
                 </div> : null
+            }
+            {
+                isLogout ? localStorage.clear() : null
+            }
+            {
+                !localStorage.getItem('token') ? <Navigate to={'/'} replace={true} /> : null
             }
         </>
     );
