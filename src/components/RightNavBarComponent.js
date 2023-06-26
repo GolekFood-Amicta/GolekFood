@@ -57,9 +57,6 @@ function RightNavBarComponent() {
             {
                 isLogout ? localStorage.clear() : null
             }
-            {
-                !localStorage.getItem('token') ? <Navigate to={'/'} replace={true} /> : null
-            }
         </>
     );
 }
