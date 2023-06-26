@@ -12,21 +12,21 @@ import '@brainhubeu/react-carousel/lib/style.css';
 
 function Level100({ level }) {
     if (level >= 0 && level < 33) {
-        return <span className="col-span-2 font-medium px-2 py-1">Low</span>
+        return <span className="col-span-2 font-medium px-2 py-1">Rendah</span>
     } else if (level >= 33 && level < 66) {
-        return <span className="col-span-2 font-medium px-2 py-1">Med</span>
+        return <span className="col-span-2 font-medium px-2 py-1">Sedang</span>
     } else {
-        return <span className="col-span-2 font-medium px-2 py-1">High</span>
+        return <span className="col-span-2 font-medium px-2 py-1">Tinggi</span>
     }
 }
 
 function Level1000({ level }) {
     if (level >= 0 && level < 333) {
-        return <span className="col-span-2 font-medium px-2 py-1">Low</span>
+        return <span className="col-span-2 font-medium px-2 py-1">Rendah</span>
     } else if (level >= 333 && level < 666) {
-        return <span className="col-span-2 font-medium px-2 py-1">Med</span>
+        return <span className="col-span-2 font-medium px-2 py-1">Sedang</span>
     } else {
-        return <span className="col-span-2 font-medium px-2 py-1">High</span>
+        return <span className="col-span-2 font-medium px-2 py-1">Tinggi</span>
     }
 }
 
@@ -173,6 +173,7 @@ class Discover extends React.Component {
                             {this.state.advanceMode ? <InputNumber value={this.state.carbohydrates} onChange={this.onCarbohydratesChangeEventHandler} /> : <Level1000 level={this.state.carbohydrates} />}
                             <button onClick={this.resetFoods} className="font-medium col-span-10 text-white bg-GF-green w-full py-4 rounded-xl hover:bg-opacity-75">Temukan Makanan</button>
                         </form>
+                        <p className="text-xs mb-4">*Komposisi gizi pangan dihitung per 100 g</p>
                     </div>
                     <div className="w-2/3 pl-4">
                         <p className="font-medium text-center text-xl mb-16">Rekomendasi</p>
