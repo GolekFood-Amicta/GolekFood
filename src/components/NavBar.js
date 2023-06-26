@@ -1,9 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
-import userData from "../data/UserData";
-import SignInButton from "./SignInButton";
-import UserComponent from "./UserComponent";
+import RightNavBarComponent from "./RightNavBarComponent";
 
 function NavBar() {
     return (
@@ -23,9 +21,7 @@ function NavBar() {
                     <Link to={"/Data"} className="text-GF-grey hover:font-extrabold focus:font-extrabold focus:text-GF-green">Data</Link>
                 </li>
             </ul>
-            {
-                userData[0].signed ? <UserComponent name={userData[0].name} image={"https://picsum.photos/200"} /> : <SignInButton />
-            }
+            <RightNavBarComponent />
         </nav>
     );
 }

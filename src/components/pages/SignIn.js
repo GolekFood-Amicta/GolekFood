@@ -47,6 +47,7 @@ class SignIn extends React.Component {
             });
 
             localStorage.setItem('token', response.data.data.access_token);
+            localStorage.setItem('user_id', response.data.data.user.id);
             console.log('Berhasil login', response.data);
 
             this.setState({
