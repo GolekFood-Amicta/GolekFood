@@ -47,7 +47,7 @@ function Data() {
 			</div>
 
 			<div className='px-16'>
-				<table className="w-full text-center">
+				<table className="w-full text-left">
 					<thead className="h-16 sticky top-[143px] backdrop-blur">
 						<tr>
 							<th>Nomor</th>
