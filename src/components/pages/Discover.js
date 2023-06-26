@@ -112,8 +112,6 @@ class Discover extends React.Component {
         const response = await api.post('discover-food-adv', food);
         this.setState(response.data);
         this.state.foods = response.data;
-        console.log(this.state.foods);
-        event.stopPropagation();
     }
 
     resetFoods() {
