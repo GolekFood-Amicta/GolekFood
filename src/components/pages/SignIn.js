@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Logo from "../Logo";
 import api from "../../api/api";
 import vector from '../../assets/vector/vector-signin.svg';
@@ -58,6 +58,8 @@ class SignIn extends React.Component {
             this.setState({ error: 'Login gagal.' });
             console.log(error);
         }
+
+        event.stopPropagation();
     }
 
     render() {
@@ -91,7 +93,14 @@ class SignIn extends React.Component {
                                 </div>
                                 <Link className="text-xs hover:font-medium hover:text-GF-green">Forgot Password?</Link>
                             </div>
-                            <button className="w-full mb-16 bg-GF-green text-white py-4 rounded-xl hover:bg-GF-green">Sign In</button>
+                            <button className="w-full h-14 mb-16 bg-GF-green text-white rounded-xl hover:bg-GF-green">
+                                Sign In
+                            </button>
+                            {
+                                localStorage.getItem('token') && (
+                                    <Navigate to={'/Discover'} replace={true} />
+                                )
+                            }
                         </form>
                     </div>
                 </div>
