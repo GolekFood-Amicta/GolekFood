@@ -75,17 +75,17 @@ class SignIn extends React.Component {
                     </div>
                     <div>
                         <p className="text-2xl font-medium mt-16 mb-4">Welcome to <span className="font-bold">GolekFoods</span>, <br />Sign In to Continue </p>
-                        <p className="text-sm font-medium">Don’t have an account? <Link to={"/SignUp"}><span className="underline hover:font-semibold hover:text-GF-green">Create an Account</span></Link> <br /> It takes less than a minute.</p>
+                        <p className="text-sm font-medium">Tidak punya akun? <Link to={"/SignUp"}><span className="underline hover:font-semibold hover:text-GF-green">Buat akun baru</span></Link></p>
                         <div className="h-16" />
-                        <form onSubmit={this.handleSubmit}>
+                        <form onSubmit={this.handleSubmit} >
                             <label className="text-sm font-medium mb-2">
                                 Email
-                                <input type="email" value={this.state.email} onChange={this.onEmailChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
+                                <input type="email" name="email" value={this.state.email} onChange={this.onEmailChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
                             </label>
                             <div className="h-8" />
                             <label className="text-sm font-medium mb-2">
                                 Password
-                                <input type="password" value={this.state.password} onChange={this.onPasswordChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
+                                <input type="password" name="password" value={this.state.password} onChange={this.onPasswordChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
                             </label>
                             <div className="flex justify-between mt-8 mb-8">
                                 <div className="flex items-center space-x-2">

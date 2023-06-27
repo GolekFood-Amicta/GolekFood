@@ -1,4 +1,5 @@
 import React from "react";
+import api from "../../api/api";
 import Logo from "../Logo";
 import vector from '../../assets/vector/vector-signup.svg';
 
@@ -10,13 +11,16 @@ class SignUp extends React.Component {
             name: '',
             email: '',
             password: '',
-            confirmPassword: ''
+            password_confirmation: '',
+            response: {},
+            error: ''
         }
 
         this.onNameChangeEventHandler = this.onNameChangeEventHandler.bind(this);
         this.onEmailChangeEventHandler = this.onEmailChangeEventHandler.bind(this);
         this.onPasswordChangeEventHandler = this.onPasswordChangeEventHandler.bind(this);
-        this.onConfirmPasswordChangeEventHandler = this.onConfirmPasswordChangeEventHandler.bind(this);
+        this.onPasswordConfirmationChangeEventHandler = this.onPasswordConfirmationChangeEventHandler.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     onNameChangeEventHandler(event) {
@@ -43,12 +47,40 @@ class SignUp extends React.Component {
         })
     }
 
-    onConfirmPasswordChangeEventHandler(event) {
+    onPasswordConfirmationChangeEventHandler(event) {
         this.setState(() => {
             return {
-                confirmPassword: event.target.value,
+                password_confirmation: event.target.value
             }
         })
+    }
+
+    async handleSubmit(event) {
+        event.preventDefault();
+
+        try {
+            const response = await api.post('register', {
+                name: this.state.name,
+                email: this.state.email,
+                address: 'undefined',
+                password: this.state.password,
+                password_confirmation: this.state.password_confirmation,
+                roles_id: 1
+            });
+
+            console.log('Berhasil daftar', response.data);
+
+            this.setState(() => {
+                return {
+                    response: response.data,
+                }
+            })
+        } catch (error) {
+            this.setState({ error: 'Daftar gagal.' });
+            console.log(error);
+        }
+
+        event.stopPropagation();
     }
 
     render() {
@@ -63,26 +95,35 @@ class SignUp extends React.Component {
                     </div>
                     <div>
                         <p className="text-2xl font-medium mt-16 mb-4">Welcome to <span className="font-bold">GolekFoods</span>, <br />Sign Up to Continue </p>
-                        <p className="text-sm font-medium">Get started on your journey to better health with GolekFoods.</p>
+                        <p className="text-sm font-medium">Mulai pengalaman sehatmu dengan <span className="font-bold">GolekFoods</span></p>
                         <div className="h-16" />
 
-                        <p className="text-sm font-medium mb-2">Name</p>
-                        <input type="text" value={this.state.name} onChange={this.onNameChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
-                        <div className="h-8" />
-
-                        <p className="text-sm font-medium mb-2">Email</p>
-                        <input type="email" value={this.state.email} onChange={this.onEmailChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
-                        <div className="h-8" />
-
-                        <p className="text-sm font-medium mb-2">Password</p>
-                        <input type="password" value={this.state.password} onChange={this.onPasswordChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
-                        <div className="h-8" />
-
-                        <p className="text-sm font-medium mb-2">Confirm Password</p>
-                        <input type="password" value={this.state.confirmPassword} onChange={this.onConfirmPasswordChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
-                        <div className="h-8" />
-
-                        <button className="w-full mb-16 bg-GF-green text-white py-4 rounded-xl hover:bg-GF-green">Sign Up</button>
+                        <form onSubmit={this.handleSubmit}>
+                            <label className="text-sm font-medium">
+                                Nama
+                                <input type="text" name="nama" value={this.state.name} onChange={this.onNameChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
+                            </label>
+                            <div className="h-8" />
+                            <label className="text-sm font-medium">
+                                Email
+                                <input type="email" name="email" value={this.state.email} onChange={this.onEmailChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
+                            </label>
+                            <div className="h-8" />
+                            <label className="text-sm font-medium">
+                                Password
+                                <input type="password" name="password" value={this.state.password} onChange={this.onPasswordChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
+                            </label>
+                            <div className="h-8" />
+                            <label className="text-sm font-medium">
+                                Konfirmasi Password
+                                <input type="password" name="konfirmasi password" value={this.state.password_confirmation} onChange={this.onPasswordConfirmationChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
+                                {
+                                    this.state.response.message ? <p className={`my-2 text-xs ${this.state.response.message === 'User berhasil teregistrasi' ? 'text-GF-green' : 'text-red-500'}`}>{this.state.response.message}</p> : null
+                                }
+                            </label>
+                            <div className="h-8" />
+                            <button className="w-full mb-16 bg-GF-green text-white py-4 rounded-xl hover:bg-GF-green">Daftar</button>
+                        </form>
                     </div>
                 </div>
             </div>
