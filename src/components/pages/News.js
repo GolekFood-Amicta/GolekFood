@@ -13,7 +13,7 @@ function News() {
                     <NewsPaginate newsItemsPerPage={4} />
                 </div>
                 <div className="w-1/2 px-8">
-                    <img src={vector} alt="vector" className="fixed w-2/5" />
+                    <img src={vector} alt="vector" className="fixed w-2/2" />
                 </div>
             </div>
         </div>

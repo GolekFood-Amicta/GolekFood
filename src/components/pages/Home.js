@@ -17,10 +17,10 @@ function Home() {
                         <p className="font-bold text-6xl text-GF-grey">untuk menemukan</p>
                         <p className="font-bold text-5xl text-GF-grey">makanan sehat dan tepat</p>
                     </div>
-                    <p className="font-medium text-xl text-GF-light-grey">Lebih Banyak Pilihan, Lebih Banyak Kesehatan<br />GolekFoods Memiliki Semua yang Anda Butuhkan.</p>
+                    <p className="font-medium text-xl text-GF-light-grey">Lebih Banyak Pilihan, Lebih Banyak Kesehatan<br />GolekFood Memiliki Semua yang Anda Butuhkan.</p>
                     <Link to={"/Discover"}>
                         <button className="bg-GF-green w-fit rounded-3xl px-6 py-4">
-                            <p className="font-semibold text-lg text-white">Discover Foods</p>
+                            <p className="font-semibold text-lg text-white">Discover Food</p>
                         </button>
                     </Link>
                 </div>
