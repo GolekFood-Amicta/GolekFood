@@ -1,7 +1,8 @@
-import React from "react";
+import React, { createRef } from "react";
 import api from "../../api/api";
 import Logo from "../Logo";
 import vector from '../../assets/vector/vector-signup.svg';
+import SignUpSuccessInfo from "../SignUpSuccessInfo";
 
 class SignUp extends React.Component {
     constructor(props) {
@@ -86,6 +87,10 @@ class SignUp extends React.Component {
     render() {
         return (
             <div className="flex">
+                <SignUpSuccessInfo className={`z-[999] fixed ${this.state.response.message === 'User berhasil teregistrasi' ? '' : 'hidden'} shadow m-auto top-0 bottom-0 right-0 left-0 bg-white w-1/4 h-fit rounded-3xl p-8`} />
+                {
+                    this.state.response.message === 'User berhasil teregistrasi' ? <div className="z-50 w-screen h-screen backdrop-blur fixed" /> : null
+                }
                 <div className="w-1/2">
                     <img src={vector} alt="vector" className="fixed w-2/5 m-8" />
                 </div>
@@ -102,23 +107,35 @@ class SignUp extends React.Component {
                             <label className="text-sm font-medium">
                                 Nama
                                 <input type="text" name="nama" value={this.state.name} onChange={this.onNameChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
+                                {
+                                    this.state.response.message === 'Nama Lengkap wajib diisi' ? <p className="text-xs text-red-500">{this.state.response.message}</p> : null
+                                }
                             </label>
                             <div className="h-8" />
                             <label className="text-sm font-medium">
                                 Email
                                 <input type="email" name="email" value={this.state.email} onChange={this.onEmailChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
+                                {
+                                    this.state.response.message === 'Email sudah terdaftar' ? <p className="text-xs text-red-500">{this.state.response.message}</p> : null
+                                }
                             </label>
                             <div className="h-8" />
                             <label className="text-sm font-medium">
                                 Password
                                 <input type="password" name="password" value={this.state.password} onChange={this.onPasswordChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
+                                {
+                                    this.state.response.message === 'Password wajib diisi' ? <p className="text-xs text-red-500">{this.state.response.message}</p> : null
+                                }
+                                {
+                                    this.state.response.message === 'Password minimal 6 karakter' ? <p className="text-xs text-red-500">{this.state.response.message}</p> : null
+                                }
                             </label>
                             <div className="h-8" />
                             <label className="text-sm font-medium">
                                 Konfirmasi Password
                                 <input type="password" name="konfirmasi password" value={this.state.password_confirmation} onChange={this.onPasswordConfirmationChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
                                 {
-                                    this.state.response.message ? <p className={`my-2 text-xs ${this.state.response.message === 'User berhasil teregistrasi' ? 'text-GF-green' : 'text-red-500'}`}>{this.state.response.message}</p> : null
+                                    this.state.response.message === 'Password tidak sama dengan konfirmasi password' ? <p className="text-xs text-red-500">{this.state.response.message}</p> : null
                                 }
                             </label>
                             <div className="h-8" />
