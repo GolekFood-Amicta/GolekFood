@@ -3,6 +3,7 @@ import api from "../../api/api";
 import Logo from "../Logo";
 import vector from '../../assets/vector/vector-signup.svg';
 import SignUpSuccessInfo from "../SignUpSuccessInfo";
+import { Link, Navigate } from "react-router-dom";
 
 class SignUp extends React.Component {
     constructor(props) {
@@ -92,9 +93,9 @@ class SignUp extends React.Component {
                     this.state.response.message === 'User berhasil teregistrasi' ? <div className="z-50 w-screen h-screen backdrop-blur fixed" /> : null
                 }
                 <div className="w-1/2">
-                    <img src={vector} alt="vector" className="fixed w-2/5 m-8" />
+                    <img src={vector} alt="vector" className="fixed w-2/5 m-16" />
                 </div>
-                <div className="w-1/2 pr-8">
+                <div className="w-2/4 pr-16">
                     <div className="text-right mt-8 mb-8">
                         <Logo />
                     </div>
@@ -139,8 +140,9 @@ class SignUp extends React.Component {
                                 }
                             </label>
                             <div className="h-8" />
-                            <button className="w-full mb-16 bg-GF-green text-white py-4 rounded-xl hover:bg-GF-green">Daftar</button>
-                        </form>
+                            <button className="w-full mb-4 bg-GF-green text-white py-4 rounded-xl hover:bg-GF-green">Daftar</button>
+                            <p className="text-left text-sm font-medium">Sudah punya akun? <Link to={"/SignIn"}><span className="text-black underline hover:font-semibold hover:text-GF-green">Login Sekarang</span></Link></p>
+</form>
                     </div>
                 </div>
             </div>
