@@ -46,7 +46,9 @@ function RightNavBarComponent() {
                 localStorage.getItem('token') ? <div className={`absolute ${dropdown ? 'block' : 'hidden'} flex flex-col justify-start top-20 right-16 w-40 bg-black bg-opacity-50 text-white rounded-xl`}>
                     <button className="hover:bg-white hover:bg-opacity-50 transition h-10 rounded-xl">
                         <Link to={'/Profile'}>
-                            Profil
+                            <div className="w-full h-10 flex justify-center items-center">
+                                Profil
+                            </div>
                         </Link>
                     </button>
                     <button onClick={toggleLogout} className="hover:bg-red-500 hover:bg-opacity-50 transition h-10 rounded-xl">
