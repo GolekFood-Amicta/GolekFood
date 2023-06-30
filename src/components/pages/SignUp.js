@@ -142,7 +142,7 @@ class SignUp extends React.Component {
                             <div className="h-8" />
                             <button className="w-full mb-4 bg-GF-green text-white py-4 rounded-xl hover:bg-GF-green">Daftar</button>
                             <p className="text-left text-sm font-medium">Sudah punya akun? <Link to={"/SignIn"}><span className="text-black underline hover:font-semibold hover:text-GF-green">Login Sekarang</span></Link></p>
-</form>
+                        </form>
                     </div>
                 </div>
             </div>
