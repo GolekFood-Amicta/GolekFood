@@ -5,7 +5,7 @@ import userData from "../data/UserData";
 import api from "../api/api";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function RightNavBarComponent() {
     const [user, setUser] = useState(null);
@@ -21,18 +21,18 @@ function RightNavBarComponent() {
         console.log(user);
     }, [])
 
-    const showDropdown = event => {
+    const showDropdown = () => {
         setDropdown(dropdown => !dropdown);
     }
 
-    const toggleLogout = event => {
+    const toggleLogout = () => {
         setLogout(isLogout => !isLogout);
     }
 
     if (!user) {
         return (
-            <div className="w-16">
-                <p>Loading...</p>
+            <div className="w-24 px-4 py-2 flex justify-center items-center bg-GF-light-grey backdrop-blur bg-opacity-50 rounded-2xl">
+                <div className="animate-spin w-6 h-6 border-2 border-GF-grey border-dashed rounded-full" />
             </div>
         );
     }
