@@ -7,7 +7,7 @@ const dummyNews = [
         newsImage={'https://picsum.photos/seed/picsum/300'}
         author={'Anas Fikri Hanif'}
         authorImage={'https://picsum.photos/200'}
-        link={"DetailNews"}
+        link={"/DetailNews"}
     />,
     <NewsItem
         title={'Kandungan gula pada makanan ini sangat berbahaya'}
@@ -15,7 +15,7 @@ const dummyNews = [
         newsImage={'https://picsum.photos/seed/picsum/300'}
         author={'Anas Fikri Hanif'}
         authorImage={'https://picsum.photos/200'}
-        link={"DetailNews"}
+        link={"/DetailNews"}
     />,
     <NewsItem
         title={'Terlalu banyak memakan eskrim beresiko diabetes!'}
@@ -23,7 +23,7 @@ const dummyNews = [
         newsImage={'https://picsum.photos/seed/picsum/300'}
         author={'Anas Fikri Hanif'}
         authorImage={'https://picsum.photos/200'}
-        link={"DetailNews"}
+        link={"/DetailNews"}
     />,
     <NewsItem
         title={'Terlalu banyak memakan eskrim beresiko diabetes!'}
@@ -31,7 +31,7 @@ const dummyNews = [
         newsImage={'https://picsum.photos/seed/picsum/300'}
         author={'Anas Fikri Hanif'}
         authorImage={'https://picsum.photos/200'}
-        link={"DetailNews"}
+        link={"/DetailNews"}
     />,
     <NewsItem
         title={'Kandungan gula pada makanan ini sangat berbahaya'}
@@ -39,7 +39,7 @@ const dummyNews = [
         newsImage={'https://picsum.photos/seed/picsum/300'}
         author={'Anas Fikri Hanif'}
         authorImage={'https://picsum.photos/200'}
-        link={"DetailNews"}
+        link={"/DetailNews"}
     />,
     <NewsItem
         title={'Bahaya! makanan ini ternyata memiliki kalori tertinggi'}
@@ -47,7 +47,7 @@ const dummyNews = [
         newsImage={'https://picsum.photos/seed/picsum/300'}
         author={'Anas Fikri Hanif'}
         authorImage={'https://picsum.photos/200'}
-        link={"DetailNews"}
+        link={"/DetailNews"}
     />,
 ];
 
