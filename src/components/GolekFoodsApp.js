@@ -16,7 +16,7 @@ function GolekFoodsApp() {
         <Route path="/" element={<Home />} />
         <Route path="/discover" element={<Discover />} />
         <Route path="/news" element={<News />} />
-        <Route path="/news/detailnews" element={<DetailNews />} />
+        <Route path="/detailnews" element={<DetailNews />} />
         <Route path="/data" element={<Data />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />

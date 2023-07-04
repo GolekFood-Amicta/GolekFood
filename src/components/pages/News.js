@@ -3,6 +3,7 @@ import NavBar from "../NavBar";
 import vector from "../../assets/vector/vector-news.svg";
 import api from "../../api/api";
 import NewsItem from "../NewsItem";
+import apiBaseURL from "../../api/apiBaseURL";
 
 function News() {
     let [news, setNews] = useState(null);
@@ -32,8 +33,6 @@ function News() {
         }
     }
 
-    console.log(`page = ${page}`);
-
     return (
         <div className="mb-8">
             <NavBar />
@@ -49,11 +48,13 @@ function News() {
                                             key={item.id}
                                             title={item.title}
                                             body={item.body}
-                                            // newsImage={item.image}
-                                            newsImage={'https://picsum.photos/seed/picsum/300'}
-                                            link={'DetailNews'}
-                                            author={'Anas Fikri Hanif'}
-                                            authorImage={'https://picsum.photos/200'}
+                                            newsImage={`${apiBaseURL}storage/image/${item.image}`}
+                                            author={item.author.name}
+                                            authorImage={`${apiBaseURL}storage/image/${item.author.avatar}`}
+                                            link={'/DetailNews'}
+                                            state={{
+                                                id: item.id
+                                            }}
                                         />
                                     ))
                                 }
