@@ -32,8 +32,6 @@ function News() {
         }
     }
 
-    console.log(`page = ${page}`);
-
     return (
         <div className="mb-8">
             <NavBar />
@@ -49,11 +47,13 @@ function News() {
                                             key={item.id}
                                             title={item.title}
                                             body={item.body}
-                                            // newsImage={item.image}
-                                            newsImage={'https://picsum.photos/seed/picsum/300'}
-                                            link={'DetailNews'}
-                                            author={'Anas Fikri Hanif'}
-                                            authorImage={'https://picsum.photos/200'}
+                                            newsImage={item.image}
+                                            author={item.author.name}
+                                            authorImage={item.author.avatar}
+                                            link={'/DetailNews'}
+                                            state={{
+                                                id: item.id
+                                            }}
                                         />
                                     ))
                                 }
