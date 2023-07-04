@@ -8,6 +8,7 @@ import facebook from "../../assets/social/facebook.svg";
 import Logo from "../Logo";
 import { useLocation } from "react-router-dom";
 import api from "../../api/api";
+import apiBaseURL from "../../api/apiBaseURL";
 
 function formatDate(date) {
     return new Date(date).toLocaleDateString("id-ID", {
@@ -39,10 +40,10 @@ function DetailNews() {
                     <>
                         <h1 className="font-medium text-3xl text-center">{detailNews.data.title}</h1>
                         <div className="flex justify-center items-center my-4 space-x-4">
-                            <img src={detailNews.data.author.avatar} alt="author" className="w-6 rounded-full" />
+                            <img src={`${apiBaseURL}storage/image/${detailNews.data.author.avatar}`} alt="author" className="w-6 rounded-full" />
                             <span className="font-medium text-xs">{detailNews.data.author.name} <span className="font-normal">pada {formatDate(detailNews.data.created_at)}</span></span>
                         </div>
-                        <img src={detailNews.data.image} alt="news" className="w-1/2 rounded-xl mx-auto my-8" />
+                        <img src={`${apiBaseURL}storage/image/${detailNews.data.image}`} alt="news" className="w-1/2 rounded-xl mx-auto my-8" />
                         <div dangerouslySetInnerHTML={{ __html: detailNews.data.body }} className="w-2/3 font-normal text-justify mx-auto space-y-4">
                         </div>
                         <h2 className="text-GF-green text-2xl font-semibold text-center my-16">Baca Berita Lain</h2>

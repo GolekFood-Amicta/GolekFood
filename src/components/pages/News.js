@@ -3,6 +3,7 @@ import NavBar from "../NavBar";
 import vector from "../../assets/vector/vector-news.svg";
 import api from "../../api/api";
 import NewsItem from "../NewsItem";
+import apiBaseURL from "../../api/apiBaseURL";
 
 function News() {
     let [news, setNews] = useState(null);
@@ -47,9 +48,9 @@ function News() {
                                             key={item.id}
                                             title={item.title}
                                             body={item.body}
-                                            newsImage={item.image}
+                                            newsImage={`${apiBaseURL}storage/image/${item.image}`}
                                             author={item.author.name}
-                                            authorImage={item.author.avatar}
+                                            authorImage={`${apiBaseURL}storage/image/${item.author.avatar}`}
                                             link={'/DetailNews'}
                                             state={{
                                                 id: item.id
