@@ -40,7 +40,7 @@ function RightNavBarComponent() {
     return (
         <>
             {
-                localStorage.getItem('token') ? <UserComponent name={user.data.name} image={user.data.avatar === 'default-profile.png' ? userData[0].photo : ''} onClick={showDropdown} /> : <SignInButton />
+                user && localStorage.getItem('token') ? <UserComponent name={user.data.name} image={user.data.avatar === 'default-profile.png' ? userData[0].photo : ''} onClick={showDropdown} /> : <SignInButton />
             }
             {
                 localStorage.getItem('token') ? <div className={`absolute ${dropdown ? 'block' : 'hidden'} flex flex-col justify-start top-20 right-16 w-40 bg-black bg-opacity-50 text-white rounded-xl`}>
