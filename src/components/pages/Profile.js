@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../NavBar";
-import userData from "../../data/UserData";
 import handWaving from "../../assets/hand-waving.svg";
 import FavoriteFoodItem from "../FavoriteFoodItem";
 import api from "../../api/api";
+import apiBaseURL from "../../api/apiBaseURL";
 
 class Profile extends React.Component {
     constructor(props) {
@@ -13,9 +13,9 @@ class Profile extends React.Component {
             email: '',
             address: '',
             password: '',
-            profileResponse: null,
+            getProfileResponse: null,
+            postProfileResponse: null,
             favoriteResponse: null,
-            error: '',
             editMode: false
         }
 
@@ -24,6 +24,7 @@ class Profile extends React.Component {
         this.onAddressChangeEventHandler = this.onAddressChangeEventHandler.bind(this);
         this.onPasswordChangeEventHandler = this.onPasswordChangeEventHandler.bind(this);
         this.toggleEditMode = this.toggleEditMode.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     onNameChangeEventHandler(event) {
@@ -69,11 +70,34 @@ class Profile extends React.Component {
     }
 
     async componentDidMount() {
-        const profileResponse = await api.get(`user/${localStorage.getItem('user_id')}`);
+        const getProfileResponse = await api.get(`user/${localStorage.getItem('user_id')}`);
         const favoriteResponse = await api.get(`favourite-user/${localStorage.getItem('user_id')}`);
 
-        this.setState({ profileResponse: profileResponse.data });
+        this.setState({ getProfileResponse: getProfileResponse.data });
         this.setState({ favoriteResponse: favoriteResponse.data });
+    }
+
+    async handleSubmit(event) {
+        const updateProfile = {
+            name: this.state.name,
+            email: this.state.email,
+            address: this.state.address,
+            password: this.state.password,
+        }
+
+        const postProfileResponse = await api.post(`user?_method=PUT`, updateProfile, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        this.setState(() => {
+            return {
+                getProfileResponse: null,
+                postProfileResponse: postProfileResponse.data
+            }
+        })
     }
 
     render() {
@@ -83,33 +107,33 @@ class Profile extends React.Component {
                 <div className="flex mb-8">
                     <div className="w-1/3 px-16">
                         {
-                            this.state.profileResponse && (
+                            this.state.getProfileResponse && (
                                 <>
                                     <div className="flex space-x-2">
-                                        <p><span className="font-semibold">Hi</span>, {this.state.profileResponse.data.name}</p>
+                                        <p><span className="font-semibold">Hi</span>, {this.state.getProfileResponse.data.name}</p>
                                         <img src={handWaving} alt="hand-waving" className="w-6 h-6" />
                                     </div>
-                                    <img src={userData.map((data) => data.photo)} alt="profile" className="w-full my-12 rounded-lg" />
-                                    <form className="space-y-4">
+                                    <img src={`${apiBaseURL}storage/image/${this.state.getProfileResponse.data.avatar}`} alt="profile" className="w-full my-12 rounded-lg" />
+                                    <form onSubmit={this.handleSubmit} className="space-y-4">
                                         <label className="font-medium flex flex-col">
                                             Name
-                                            <input type="text" value={this.state.profileResponse.data.name} onChange={this.onNameChangeEventHandler} disabled={!this.state.editMode} className="font-light border-b-2 border-black bg-transparent " />
+                                            <input type="text" value={!this.state.editMode ? this.state.getProfileResponse.data.name : this.state.name} onChange={this.onNameChangeEventHandler} disabled={!this.state.editMode} className="font-light border-b-2 border-black bg-transparent outline-none" />
                                         </label>
                                         <label className="font-medium flex flex-col">
                                             Email
-                                            <input type="email" value={this.state.profileResponse.data.email} onChange={this.onEmailChangeEventHandler} disabled={!this.state.editMode} className="font-light border-b-2 border-black bg-transparent" />
+                                            <input type="email" value={!this.state.editMode ? this.state.getProfileResponse.data.email : this.state.email} onChange={this.onEmailChangeEventHandler} disabled={!this.state.editMode} className="font-light border-b-2 border-black bg-transparent outline-none" />
                                         </label>
                                         <label className="font-medium flex flex-col">
                                             Address
-                                            <input type="text" value={this.state.profileResponse.data.address} onChange={this.onAddressChangeEventHandler} disabled={!this.state.editMode} className="font-light border-b-2 border-black bg-transparent" />
+                                            <input type="text" value={!this.state.editMode ? this.state.getProfileResponse.data.address : this.state.address} onChange={this.onAddressChangeEventHandler} disabled={!this.state.editMode} className="font-light border-b-2 border-black bg-transparent outline-none" />
                                         </label>
                                         <label className="font-medium flex flex-col">
                                             Password
-                                            <input type="password" onChange={this.onPasswordChangeEventHandler} disabled={!this.state.editMode} className="font-light border-b-2 border-black bg-transparent" />
+                                            <input type="password" value={!this.state.editMode ? '********' : this.state.password} onChange={this.onPasswordChangeEventHandler} disabled={!this.state.editMode} className="font-light border-b-2 border-black bg-transparent outline-none" />
                                         </label>
                                         {
                                             this.state.editMode ? <div className="flex space-x-2">
-                                                <button onClick={this.toggleEditMode} className="bg-GF-green w-full py-4 rounded-xl font-medium text-white">Simpan profil</button>
+                                                <button type="submit" className="bg-GF-green w-full py-4 rounded-xl font-medium text-white">Simpan profil</button>
                                                 <button onClick={this.toggleEditMode} className="bg-red-500 px-5 rounded-xl font-medium text-white text-lg">&times;</button>
                                             </div> : <button onClick={this.toggleEditMode} className="bg-GF-green w-full py-4 rounded-xl font-medium text-white">Edit profil</button>
                                         }
@@ -121,18 +145,6 @@ class Profile extends React.Component {
                     <div className="w-2/3 px-16">
                         <p className="text-GF-grey font-semibold mb-12">Makanan Favorit</p>
                         <div className="grid grid-cols-3 gap-10">
-                            <FavoriteFoodItem
-                                name={"Roti Putih"}
-                                image={"https://img.my-best.id/content_section/beforehand_tips/4e0654064c1f4f6c6f82ca43010f122e.jpg?ixlib=rails-4.3.1&q=70&lossless=0&w=690&fit=max&s=a3da0b23fcedeb9e0f0e9f86034c1225"}
-                            />
-                            <FavoriteFoodItem
-                                name={"Roti Putih"}
-                                image={"https://img.my-best.id/content_section/beforehand_tips/4e0654064c1f4f6c6f82ca43010f122e.jpg?ixlib=rails-4.3.1&q=70&lossless=0&w=690&fit=max&s=a3da0b23fcedeb9e0f0e9f86034c1225"}
-                            />
-                            <FavoriteFoodItem
-                                name={"Roti Putih"}
-                                image={"https://img.my-best.id/content_section/beforehand_tips/4e0654064c1f4f6c6f82ca43010f122e.jpg?ixlib=rails-4.3.1&q=70&lossless=0&w=690&fit=max&s=a3da0b23fcedeb9e0f0e9f86034c1225"}
-                            />
                             {
                                 this.state.favoriteResponse && (
                                     <>
