@@ -32,6 +32,17 @@ const reviews = [
 
 function Home() {
     const [favoriteFood, setFavoriteFood] = useState(null);
+    const [warning, setWarning] = useState(false);
+
+    const showWarning = () => {
+        if (!localStorage.getItem('user_id')) {
+            setWarning(true);
+        }
+    }
+
+    const hideWarning = () => {
+        setWarning(false);
+    }
 
     useEffect(() => {
         async function getFavoriteFood() {
@@ -44,6 +55,20 @@ function Home() {
     return (
         <div>
             <NavBar />
+            <div className={`${warning === false ? 'hidden' : ''} z-[999] fixed shadow m-auto top-0 bottom-0 left-0 right-0 w-1/4 h-fit bg-white rounded-3xl p-8`}>
+                <div className="flex justify-end">
+                    <button onClick={hideWarning} className="text-2xl">&times;</button>
+                </div>
+                <p className="my-4 text-justify">Untuk menggunakan fitur <span className="font-bold text-GF-green">Temukan Makanan</span>, silahkan masuk terlebih dahulu menggunakan akun Anda.</p>
+                <Link to={'/SignIn'}>
+                    <button className="w-full py-4 bg-GF-green text-white rounded-xl transition hover:bg-opacity-75">
+                        Masuk
+                    </button>
+                </Link>
+            </div>
+            {
+                warning === true ? <div className="z-[700] fixed backdrop-blur w-screen h-screen" /> : null
+            }
 
             {/* Headline */}
             <section className="flex">
@@ -54,9 +79,9 @@ function Home() {
                         <p className="font-bold text-5xl text-GF-grey">makanan sehat dan tepat</p>
                     </div>
                     <p className="font-medium text-xl text-GF-light-grey">Lebih Banyak Pilihan, Lebih Banyak Kesehatan<br />GolekFood Memiliki Semua yang Anda Butuhkan.</p>
-                    <Link to={"/Discover"}>
+                    <Link onClick={showWarning} to={localStorage.getItem('user_id') ? "/Discover" : ""}>
                         <button className="bg-GF-green w-fit rounded-3xl px-6 py-4">
-                            <p className="font-semibold text-lg text-white">Discover Food</p>
+                            <p className="font-semibold text-lg text-white">Cari Makanan</p>
                         </button>
                     </Link>
                 </div>
