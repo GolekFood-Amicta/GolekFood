@@ -13,6 +13,8 @@ class Profile extends React.Component {
             email: '',
             address: '',
             password: '',
+            image: null,
+            previewImage: null,
             getProfileResponse: null,
             postProfileResponse: null,
             favoriteResponse: null,
@@ -25,6 +27,7 @@ class Profile extends React.Component {
         this.onPasswordChangeEventHandler = this.onPasswordChangeEventHandler.bind(this);
         this.toggleEditMode = this.toggleEditMode.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleImage = this.handleImage.bind(this);
     }
 
     onNameChangeEventHandler(event) {
@@ -69,35 +72,57 @@ class Profile extends React.Component {
         event.stopPropagation();
     }
 
+    handleImage(event) {
+        console.log(event.target.files);
+        this.setState(() => {
+            return {
+                image: event.target.files[0],
+                previewImage: URL.createObjectURL(event.target.files[0]),
+            }
+        })
+    }
+
     async componentDidMount() {
         const getProfileResponse = await api.get(`user/${localStorage.getItem('user_id')}`);
         const favoriteResponse = await api.get(`favourite-user/${localStorage.getItem('user_id')}`);
 
         this.setState({ getProfileResponse: getProfileResponse.data });
         this.setState({ favoriteResponse: favoriteResponse.data });
+
+        console.log(this.state.getProfileResponse);
     }
 
     async handleSubmit(event) {
+        const formData = new FormData();
+        formData.append('name', this.state.name);
+        formData.append('email', this.state.email);
+        formData.append('address', this.state.address);
+        formData.append('password', this.state.password);
+        formData.append('image', this.state.image);
+
         const updateProfile = {
             name: this.state.name,
             email: this.state.email,
             address: this.state.address,
             password: this.state.password,
+            file: formData,
         }
 
-        const postProfileResponse = await api.post(`user?_method=PUT`, updateProfile, {
+        const postProfileResponse = await api.post(`user?_method=PUT`, formData, {
             headers: {
-                'Accept': 'application/json',
+                // 'Accept': 'application/json',
+                'Content-Type': 'multipart/form-data',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         });
 
         this.setState(() => {
             return {
-                getProfileResponse: null,
                 postProfileResponse: postProfileResponse.data
             }
         })
+
+        console.log(formData);
     }
 
     render() {
@@ -113,23 +138,29 @@ class Profile extends React.Component {
                                         <p><span className="font-semibold">Hi</span>, {this.state.getProfileResponse.data.name}</p>
                                         <img src={handWaving} alt="hand-waving" className="w-6 h-6" />
                                     </div>
-                                    <img src={`${apiBaseURL}storage/image/${this.state.getProfileResponse.data.avatar}`} alt="profile" className="w-full my-12 rounded-lg" />
+                                    <img src={this.state.previewImage ? this.state.previewImage : `${apiBaseURL}storage/image/${this.state.getProfileResponse.data.avatar}`} alt="profile" className="w-full my-12 rounded-lg" />
                                     <form onSubmit={this.handleSubmit} className="space-y-4">
+                                        {
+                                            this.state.editMode ? <label>
+                                                <input type="file" name="file" onChange={event => this.handleImage(event)} className="file:transition file:bg-GF-green file:hover:bg-opacity-75
+                                                 file:border-none file:rounded-xl file:text-white file:py-2 file:px-4 file:hover:cursor-pointer" />
+                                            </label> : null
+                                        }
                                         <label className="font-medium flex flex-col">
                                             Name
-                                            <input type="text" value={!this.state.editMode ? this.state.getProfileResponse.data.name : this.state.name} onChange={this.onNameChangeEventHandler} disabled={!this.state.editMode} className="font-light border-b-2 border-black bg-transparent outline-none" />
+                                            <input type="text" name="name" value={!this.state.editMode ? this.state.getProfileResponse.data.name : this.state.name} onChange={this.onNameChangeEventHandler} disabled={!this.state.editMode} className="font-light border-b-2 border-black bg-transparent outline-none" />
                                         </label>
                                         <label className="font-medium flex flex-col">
                                             Email
-                                            <input type="email" value={!this.state.editMode ? this.state.getProfileResponse.data.email : this.state.email} onChange={this.onEmailChangeEventHandler} disabled={!this.state.editMode} className="font-light border-b-2 border-black bg-transparent outline-none" />
+                                            <input type="email" name="email" value={!this.state.editMode ? this.state.getProfileResponse.data.email : this.state.email} onChange={this.onEmailChangeEventHandler} disabled={!this.state.editMode} className="font-light border-b-2 border-black bg-transparent outline-none" />
                                         </label>
                                         <label className="font-medium flex flex-col">
                                             Address
-                                            <input type="text" value={!this.state.editMode ? this.state.getProfileResponse.data.address : this.state.address} onChange={this.onAddressChangeEventHandler} disabled={!this.state.editMode} className="font-light border-b-2 border-black bg-transparent outline-none" />
+                                            <input type="text" name="address" value={!this.state.editMode ? this.state.getProfileResponse.data.address : this.state.address} onChange={this.onAddressChangeEventHandler} disabled={!this.state.editMode} className="font-light border-b-2 border-black bg-transparent outline-none" />
                                         </label>
                                         <label className="font-medium flex flex-col">
                                             Password
-                                            <input type="password" value={!this.state.editMode ? '********' : this.state.password} onChange={this.onPasswordChangeEventHandler} disabled={!this.state.editMode} className="font-light border-b-2 border-black bg-transparent outline-none" />
+                                            <input type="password" name="password" value={!this.state.editMode ? '********' : this.state.password} onChange={this.onPasswordChangeEventHandler} disabled={!this.state.editMode} className="font-light border-b-2 border-black bg-transparent outline-none" />
                                         </label>
                                         {
                                             this.state.editMode ? <div className="flex space-x-2">
