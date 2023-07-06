@@ -19,7 +19,7 @@ jobs:
         with:
           submodules: true
       - name: Remove git config
-        run: |
+         run: |
           git config --global --unset http.https://github.com/.extraheader
           git config --unset http.https://github.com/.extraheader
           git config --local --unset http.https://github.com/.extraheader
