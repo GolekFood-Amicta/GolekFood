@@ -20,8 +20,6 @@ jobs:
           submodules: true
       - name: Remove git config
         run: |
-          git config --global --unset http.https://github.com/.extraheader
-          git config --unset http.https://github.com/.extraheader
           git config --local --unset http.https://github.com/.extraheader
       - name: Remove package-lock.json
         run: rm package-lock.json
