@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from '../NavBar';
 import handWaving from '../../assets/hand-waving.svg';
-import vector from '../../assets/vector/vector-no-favorite-food.svg'
+import vector from '../../assets/vector/vector-no-favorite-food.svg';
+import favorite_icon from '../../assets/favorite.svg';
+import unfavorite_icon from '../../assets/unfavorite.svg';
 import FavoriteFoodItem from '../FavoriteFoodItem';
 import api from '../../api/api';
 import apiBaseURL from '../../api/apiBaseURL';
@@ -19,7 +21,10 @@ class Profile extends React.Component {
 			getProfileResponse: null,
 			postProfileResponse: null,
 			favoriteResponse: null,
+			addFavoriteFoodResponse: null,
+			deleteFavoriteFoodResponse: null,
 			editMode: false,
+			isFavoriteFood: true,
 		};
 
 		this.onNameChangeEventHandler = this.onNameChangeEventHandler.bind(this);
@@ -31,6 +36,8 @@ class Profile extends React.Component {
 		this.toggleEditMode = this.toggleEditMode.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleImage = this.handleImage.bind(this);
+		this.addFavoriteFood = this.addFavoriteFood.bind(this);
+		this.deleteFavoriteFood = this.deleteFavoriteFood.bind(this);
 	}
 
 	onNameChangeEventHandler(event) {
@@ -105,19 +112,10 @@ class Profile extends React.Component {
 		formData.append('email', this.state.email);
 		formData.append('address', this.state.address);
 		formData.append('password', this.state.password);
-		formData.append('image', this.state.image);
-
-		const updateProfile = {
-			name: this.state.name,
-			email: this.state.email,
-			address: this.state.address,
-			password: this.state.password,
-			file: formData,
-		};
+		formData.append('file', this.state.image);
 
 		const postProfileResponse = await api.post(`user?_method=PUT`, formData, {
 			headers: {
-				// 'Accept': 'application/json',
 				'Content-Type': 'multipart/form-data',
 				Authorization: `Bearer ${localStorage.getItem('token')}`,
 			},
@@ -132,6 +130,55 @@ class Profile extends React.Component {
 		console.log(formData);
 	}
 
+	async addFavoriteFood(event, index) {
+		event.preventDefault();
+
+		const favoriteFood = {
+			user_id: parseInt(localStorage.getItem('user_id')),
+			food_id: parseInt(this.state.favoriteResponse.data[index].food_id),
+			foodname: this.state.favoriteResponse.data[index].foodname,
+			fat: parseInt(this.state.favoriteResponse.data[index].fat),
+			protein: parseInt(this.state.favoriteResponse.data[index].protein),
+			carbohydrate: parseInt(this.state.favoriteResponse.data[index].carbohydrate),
+			calories: parseInt(this.state.favoriteResponse.data[index].calories),
+			image: this.state.favoriteResponse.data[index].image,
+		}
+
+		const response = await api.post('favourite', favoriteFood);
+		console.log(response.data);
+
+		this.setState(() => {
+			return {
+				// addFavoriteFoodResponse: response.data,
+				isFavoriteFood: true,
+			}
+		})
+
+		event.stopPropagation();
+	}
+
+	async deleteFavoriteFood(event, index) {
+		// event.preventDefault();
+
+		const unFavoriteFood = {
+			user_id: parseInt(localStorage.getItem('user_id')),
+			food_id: parseInt(this.state.favoriteResponse.data[index].food_id),
+		}
+
+		const response = await api.delete('favourite', { data: unFavoriteFood });
+
+		console.log(response.data);
+
+		this.setState(() => {
+			return {
+				// deleteFavoriteFoodResponse: response.data,
+				isFavoriteFood: false,
+			}
+		})
+
+		event.stopPropagation();
+	}
+
 	render() {
 		return (
 			<div>
@@ -142,8 +189,7 @@ class Profile extends React.Component {
 							<>
 								<div className="flex space-x-2">
 									<p>
-										<span className="font-semibold">Hi</span>,{' '}
-										{this.state.getProfileResponse.data.name}
+										<span className="font-semibold">Hi</span>, {this.state.getProfileResponse.data.name}
 									</p>
 									<img src={handWaving} alt="hand-waving" className="w-6 h-6" />
 								</div>
@@ -154,7 +200,7 @@ class Profile extends React.Component {
 											: `${apiBaseURL}storage/image/${this.state.getProfileResponse.data.avatar}`
 									}
 									alt="profile"
-									className="w-full my-12 rounded-lg"
+									className="m-auto h-60 object-cover my-12 rounded-3xl"
 								/>
 								<form onSubmit={this.handleSubmit} className="space-y-4">
 									{this.state.editMode ? (
@@ -259,11 +305,13 @@ class Profile extends React.Component {
 							{this.state.favoriteResponse && (
 								<>
 									{this.state.favoriteResponse.data.length !== 0 ? (
-										this.state.favoriteResponse.data.map((item) => (
+										this.state.favoriteResponse.data.map((item, index) => (
 											<FavoriteFoodItem
 												key={item.food_id}
 												name={item.foodname}
 												image={item.image}
+												favorite={this.state.isFavoriteFood === true ? (event) => this.deleteFavoriteFood(event, index) : (event) => this.addFavoriteFood(event, index)}
+												favoriteIcon={this.state.isFavoriteFood === true ? favorite_icon : unfavorite_icon}
 											/>
 										))
 									) : (
