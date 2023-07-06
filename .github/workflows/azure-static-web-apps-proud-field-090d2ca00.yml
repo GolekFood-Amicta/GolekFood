@@ -21,7 +21,9 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
       - name: Build
-        run: yarn build
+        run: |
+          yarn add --dev @babel/plugin-proposal-private-property-in-object
+          yarn build
       - name: Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
