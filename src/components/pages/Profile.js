@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from '../NavBar';
 import handWaving from '../../assets/hand-waving.svg';
+import vector from '../../assets/vector/vector-no-favorite-food.svg'
 import FavoriteFoodItem from '../FavoriteFoodItem';
 import api from '../../api/api';
 import apiBaseURL from '../../api/apiBaseURL';
@@ -266,8 +267,9 @@ class Profile extends React.Component {
 											/>
 										))
 									) : (
-										<div className="col-span-3 h-96 flex justify-center items-center">
-											<p className="text-xl font-bold">
+										<div className="col-span-3 h-96 flex flex-col justify-center items-center">
+											<img src={vector} alt='vector' className='w-1/2' />
+											<p className="text-xl font-bold text-GF-grey">
 												Belum ada makanan favoritmu nih
 											</p>
 										</div>
