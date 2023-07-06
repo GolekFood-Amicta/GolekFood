@@ -19,16 +19,14 @@ jobs:
         with:
           submodules: true
       - name: Remove git config
-         run: |
+        run: |
           git config --global --unset http.https://github.com/.extraheader
           git config --unset http.https://github.com/.extraheader
           git config --local --unset http.https://github.com/.extraheader
       - name: Remove package-lock.json
         run: rm package-lock.json
       - name: Install Dependencies
-        run: yarn install --prefer-offline
-      - name: Update Peer Dependencies
-        run: yarn upgrade
+        run: npm install --legacy-peer-deps
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
