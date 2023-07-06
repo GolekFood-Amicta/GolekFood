@@ -188,7 +188,7 @@ class Discover extends React.Component {
     async deleteFavoriteFood(event, index) {
         const unFavoriteFood = {
             user_id: parseInt(localStorage.getItem('user_id')),
-            food_id: String(this.state.foods.data[index].id_food),
+            food_id: parseInt(this.state.foods.data[index].id_food),
         }
 
         const response = await api.delete('favourite', { data: unFavoriteFood });
