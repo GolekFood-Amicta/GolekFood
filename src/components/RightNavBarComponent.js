@@ -4,7 +4,7 @@ import SignInButton from "./SignInButton";
 import api from "../api/api";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import apiBaseURL from "../api/apiBaseURL";
 
 function RightNavBarComponent() {
@@ -52,7 +52,11 @@ function RightNavBarComponent() {
                         </Link>
                     </button>
                     <button onClick={toggleLogout} className="hover:bg-red-500 hover:bg-opacity-50 transition h-10 rounded-xl">
-                        Keluar
+                        <Link to={'/'}>
+                            <div className="w-full h-10 flex justify-center items-center">
+                                Keluar
+                            </div>
+                        </Link>
                     </button>
                 </div> : null
             }

@@ -5,7 +5,7 @@ function NewsItem({ state, title, body, author, newsImage, authorImage, link }) 
     return (
         <Link to={link} state={state}>
             <div className="flex space-x-8 my-4">
-                <img src={newsImage} alt="news" className="rounded-2xl w-32 h-fit object-cover" />
+                <img src={newsImage} alt="news" className="rounded-2xl w-32 h-32 object-cover" />
                 <div className="flex flex-col justify-between">
                     <div className="flex flex-col space-y-2 pb-2">
                         <p className="font-medium">{title}</p>
