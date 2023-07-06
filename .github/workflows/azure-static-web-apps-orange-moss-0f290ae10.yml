@@ -25,8 +25,9 @@ jobs:
         run: rm package-lock.json
       - name: Install Dependencies
         run: yarn install --prefer-offline --frozen-lockfile
-      - name: Build And Deploy
-        id: builddeploy
+      - name: Build
+        run: yarn build
+      - name: Deploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_MOSS_0F290AE10 }}
