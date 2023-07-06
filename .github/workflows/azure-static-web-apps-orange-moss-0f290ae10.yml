@@ -32,7 +32,7 @@ jobs:
       - name: Install Dependencies
         run: yarn install --prefer-offline --frozen-lockfile
       - name: Build
-        run: yarn build
+        run: yarn build --no-warnings
       - name: Deploy
         uses: Azure/static-web-apps-deploy@v1
         with:
