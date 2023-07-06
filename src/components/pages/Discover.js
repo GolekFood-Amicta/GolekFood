@@ -177,6 +177,13 @@ class Discover extends React.Component {
     }
 
     async deleteFavoriteFood(event, index) {
+        const favoriteFood = {
+            user_id: localStorage.getItem('user_id'),
+            food_id: this.state.foods.data[index].id_food,
+        }
+
+        const response = await api.delete('favourite', favoriteFood);
+        console.log(response.data);
 
         this.setState(() => {
             return {
@@ -234,8 +241,9 @@ class Discover extends React.Component {
                     calValue={item.energi}
                     proValue={item.protein}
                     carboValue={item.karbohidrat}
-                    favorite={event => this.addFavoriteFood(event, index)}
-                    favoriteIcon={this.state.favoriteFoodResponse && this.state.favoriteFoodResponse.data.user_id === localStorage.getItem('user_id') && parseInt(this.state.favoriteFoodResponse.data.food_id) === this.state.foods.data.id_food ? favorite_icon : unfavorite_icon}
+                    favorite={item.is_favourite === false ? event => this.addFavoriteFood(event, index) : event => this.deleteFavoriteFood(event, index)}
+                    // favoriteIcon={this.state.favoriteFoodResponse && this.state.favoriteFoodResponse.data.user_id === localStorage.getItem('user_id') && parseInt(this.state.favoriteFoodResponse.data.food_id) === this.state.foods.data.id_food ? favorite_icon : unfavorite_icon}
+                    favoriteIcon={item.is_favourite === true ? favorite_icon : unfavorite_icon}
                 />
             ));
         } else {
