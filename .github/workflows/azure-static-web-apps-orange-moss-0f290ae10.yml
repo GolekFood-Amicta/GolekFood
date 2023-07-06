@@ -33,10 +33,11 @@ jobs:
         run: yarn install --prefer-offline --frozen-lockfile
       - name: Build
         run: yarn build --no-warnings
+        env:
+          CI: true
       - name: Deploy
         run: yarn run azure-static-web-apps-preview --token ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
         ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-        # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
         env:
           AzureStaticWebAppsApiToken: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           ApiLocation: "" # API source code path - optional
