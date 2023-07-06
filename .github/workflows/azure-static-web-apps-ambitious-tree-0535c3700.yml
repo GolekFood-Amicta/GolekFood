@@ -27,10 +27,18 @@ jobs:
       - name: Remove git config
         run: |
           git config --local --unset http.https://github.com/.extraheader
+      - name: Remove package-lock.json
+        run: rm package-lock.json
       - name: Install Dependencies
         run: yarn install --ignore-engines --prefer-offline --frozen-lockfile
+        env:
+          CI: true
       - name: Build
         run: yarn build --no-warnings
+        env:
+          CI: true
+      - name: Add @babel/plugin-proposal-private-property-in-object to devDependencies
+        run: yarn add -D @babel/plugin-proposal-private-property-in-object
       - name: Deploy
         uses: Azure/static-web-apps-deploy@v1
         with:
