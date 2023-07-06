@@ -79,6 +79,7 @@ class Discover extends React.Component {
         this.toggleAdvanceMode = this.toggleAdvanceMode.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.addFavoriteFood = this.addFavoriteFood.bind(this);
+        this.deleteFavoriteFood = this.deleteFavoriteFood.bind(this);
         this.onChangeValue = this.onChangeValue.bind(this);
         this.resetFoods = this.resetFoods.bind(this);
     }
@@ -166,6 +167,7 @@ class Discover extends React.Component {
             protein: this.state.foods.data[index].protein,
             carbohydrate: this.state.foods.data[index].karbohidrat,
             calories: this.state.foods.data[index].energi,
+            image: this.state.foods.data[index].gambar,
         };
 
         const response = await api.post('favourite', favoriteFood);
@@ -273,7 +275,7 @@ class Discover extends React.Component {
                 >
                     <div className="w-1/3">
                         <p className="font-medium">
-                            Temukan makanan sehat favorit dengan{' '}
+                            Temukan makanan sehat favorit dengan
                             <span className="font-bold">GolekFood</span>
                         </p>
                         <div className="flex space-x-2 my-8">
