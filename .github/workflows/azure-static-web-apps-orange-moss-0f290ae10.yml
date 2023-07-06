@@ -20,6 +20,8 @@ jobs:
           submodules: true
       - name: Remove package-lock.json
         run: rm package-lock.json
+      - name: Install Dependencies
+        run: yarn install --prefer-offline
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
