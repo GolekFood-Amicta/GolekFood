@@ -2,14 +2,17 @@ import React from 'react';
 import NavBar from '../NavBar';
 import Feedback from '../Feedback';
 import Slider from '../Slider';
-import Carousel, { arrowsPlugin, slidesToShowPlugin } from '@brainhubeu/react-carousel';
+import Carousel, {
+    arrowsPlugin,
+    slidesToShowPlugin,
+} from '@brainhubeu/react-carousel';
 import FoodItem from '../FoodItem';
 import left_arrow from '../../assets/left-arrow.svg';
 import right_arrow from '../../assets/right-arrow.svg';
 import feedback_icon from '../../assets/feedback_icon.svg';
 import api from '../../api/api';
-import favorite_icon from '../../assets/favorite.svg'
-import unfavorite_icon from '../../assets/unfavorite.svg'
+import favorite_icon from '../../assets/favorite.svg';
+import unfavorite_icon from '../../assets/unfavorite.svg';
 import '@brainhubeu/react-carousel/lib/style.css';
 
 function Level100({ level }) {
@@ -60,7 +63,7 @@ class Discover extends React.Component {
             foods: [],
             recommendations: [],
             favoriteFoodResponse: null,
-            isFavoriteFood: false
+            isFavoriteFood: false,
         };
 
         this.carouselRef = React.createRef();
@@ -134,9 +137,9 @@ class Discover extends React.Component {
 
         const response = await api.post('discover-food-adv', food, {
             headers: {
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
+                Accept: 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
         });
         const newRecommendations = response.data;
         console.log(newRecommendations);
@@ -162,35 +165,45 @@ class Discover extends React.Component {
             fat: this.state.foods.data[index].lemak,
             protein: this.state.foods.data[index].protein,
             carbohydrate: this.state.foods.data[index].karbohidrat,
-            calories: this.state.foods.data[index].energi
-        }
+            calories: this.state.foods.data[index].energi,
+        };
 
         const response = await api.post('favourite', favoriteFood);
         console.log(response.data);
 
-        this.setState(() => {
+        this.setState((prevState) => {
+            const updatedFoods = [...prevState.foods.data];
+            updatedFoods[index].is_favourite = true;
+
             return {
                 favoriteFoodResponse: response.data,
                 isFavoriteFood: true,
-            }
+                foods: { ...prevState.foods, data: updatedFoods },
+            };
         });
     }
 
     async deleteFavoriteFood(event, index) {
-        const favoriteFood = {
-            user_id: localStorage.getItem('user_id'),
-            food_id: this.state.foods.data[index].id_food,
+        const unFavoriteFood = {
+            user_id: parseInt(localStorage.getItem('user_id')),
+            food_id: String(this.state.foods.data[index].id_food),
         }
 
-        const response = await api.delete('favourite', favoriteFood);
+        const response = await api.delete('favourite', { data: unFavoriteFood });
+
         console.log(response.data);
 
-        this.setState(() => {
+        this.setState(prevState => {
+            const updatedFoods = [...prevState.foods.data];
+            updatedFoods[index].is_favourite = false;
+
             return {
                 isFavoriteFood: false,
+                foods: { ...prevState.foods, data: updatedFoods },
             }
         })
     }
+
 
     resetFoods() {
         this.setState(() => {
@@ -241,8 +254,7 @@ class Discover extends React.Component {
                     calValue={item.energi}
                     proValue={item.protein}
                     carboValue={item.karbohidrat}
-                    favorite={item.is_favourite === false ? event => this.addFavoriteFood(event, index) : event => this.deleteFavoriteFood(event, index)}
-                    // favoriteIcon={this.state.favoriteFoodResponse && this.state.favoriteFoodResponse.data.user_id === localStorage.getItem('user_id') && parseInt(this.state.favoriteFoodResponse.data.food_id) === this.state.foods.data.id_food ? favorite_icon : unfavorite_icon}
+                    favorite={item.is_favourite === false ? (event) => this.addFavoriteFood(event, index) : (event) => this.deleteFavoriteFood(event, index)}
                     favoriteIcon={item.is_favourite === true ? favorite_icon : unfavorite_icon}
                 />
             ));
