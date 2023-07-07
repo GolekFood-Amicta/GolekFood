@@ -1,21 +1,11 @@
 import React from 'react';
-import favorite_icon from '../assets/favorite.svg';
-import unfavorite_icon from '../assets/unfavorite.svg';
-import { useState } from 'react';
 
-function FavoriteFoodItem({ name, image }) {
-	const [isFavorite, setFavorite] = useState(false);
-
-	const favorite = (event) => {
-		event.preventDefault();
-		setFavorite(!isFavorite); // Mengubah status isFavorite setiap kali ikon favorit diklik
-	};
-
+function FavoriteFoodItem({ favorite, favoriteIcon, name, image }) {
 	return (
 		<div className="relative">
 			<button onClick={favorite} className="absolute right-0 m-2">
 				<img
-					src={isFavorite ? favorite_icon : unfavorite_icon}
+					src={favoriteIcon}
 					alt="favorite"
 					className="w-10"
 				/>
@@ -26,7 +16,7 @@ function FavoriteFoodItem({ name, image }) {
 			<img
 				src={image}
 				alt="favorite-food"
-				className="object-cover rounded-2xl"
+				className="w-full h-60 object-cover rounded-2xl"
 			/>
 		</div>
 	);
