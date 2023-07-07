@@ -1,6 +1,6 @@
 {
   "name": "golekfoods",
-  "homepage": "https://golekfood.netlify.app",
+  "homepage": "https://golekfood.netlify.app/build",
   "version": "0.1.0",
   "private": false,
   "dependencies": {
