@@ -104,24 +104,25 @@ class Profile extends React.Component {
 		formData.append('email', this.state.email);
 		formData.append('address', this.state.address);
 		formData.append('password', this.state.password);
-		formData.append('image', this.state.image);
+		formData.append('file', this.state.image);
 
-		const updateProfile = {
-			name: this.state.name,
-			email: this.state.email,
-			address: this.state.address,
-			password: this.state.password,
-			file: formData,
-		};
+		// const updateProfile = {
+		// 	name: this.state.name,
+		// 	email: this.state.email,
+		// 	address: this.state.address,
+		// 	password: this.state.password,
+		// 	file: formData,
+		// };
 
 		const postProfileResponse = await api.post(`user?_method=PUT`, formData, {
 			headers: {
-				// 'Accept': 'application/json',
-				'Content-Type': 'multipart/form-data',
+				'Accept': 'multipart/form-data, application/json',
+				// 'Content-Type': 'multipart/form-data',
 				Authorization: `Bearer ${localStorage.getItem('token')}`,
 			},
 		});
 
+		
 		this.setState(() => {
 			return {
 				postProfileResponse: postProfileResponse.data,
@@ -155,7 +156,11 @@ class Profile extends React.Component {
 									alt="profile"
 									className="w-full my-12 rounded-lg"
 								/>
-								<form onSubmit={this.handleSubmit} className="space-y-4">
+								<form
+									onSubmit={this.handleSubmit}
+									className="space-y-4"
+									// encType="multipart/form-data"
+								>
 									{this.state.editMode ? (
 										<label>
 											<input

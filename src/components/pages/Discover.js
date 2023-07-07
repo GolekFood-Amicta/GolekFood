@@ -166,6 +166,7 @@ class Discover extends React.Component {
 			protein: this.state.foods.data[index].protein,
 			carbohydrate: this.state.foods.data[index].karbohidrat,
 			calories: this.state.foods.data[index].energi,
+			image: this.state.foods.data[index].gambar,
 		};
 
 		const response = await api.post('favourite', favoriteFood);
