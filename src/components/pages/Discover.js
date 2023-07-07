@@ -2,12 +2,17 @@ import React from 'react';
 import NavBar from '../NavBar';
 import Feedback from '../Feedback';
 import Slider from '../Slider';
-import Carousel, { arrowsPlugin, slidesToShowPlugin } from '@brainhubeu/react-carousel';
+import Carousel, {
+    arrowsPlugin,
+    slidesToShowPlugin,
+} from '@brainhubeu/react-carousel';
 import FoodItem from '../FoodItem';
 import left_arrow from '../../assets/left-arrow.svg';
 import right_arrow from '../../assets/right-arrow.svg';
 import feedback_icon from '../../assets/feedback_icon.svg';
 import api from '../../api/api';
+import favorite_icon from '../../assets/favorite.svg';
+import unfavorite_icon from '../../assets/unfavorite.svg';
 import '@brainhubeu/react-carousel/lib/style.css';
 
 function Level100({ level }) {
@@ -57,6 +62,8 @@ class Discover extends React.Component {
             value: 0,
             foods: [],
             recommendations: [],
+            favoriteFoodResponse: null,
+            isFavoriteFood: false,
         };
 
         this.carouselRef = React.createRef();
@@ -71,6 +78,8 @@ class Discover extends React.Component {
         this.toggleBasicMode = this.toggleBasicMode.bind(this);
         this.toggleAdvanceMode = this.toggleAdvanceMode.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.addFavoriteFood = this.addFavoriteFood.bind(this);
+        this.deleteFavoriteFood = this.deleteFavoriteFood.bind(this);
         this.onChangeValue = this.onChangeValue.bind(this);
         this.resetFoods = this.resetFoods.bind(this);
     }
@@ -127,8 +136,16 @@ class Discover extends React.Component {
             karbohidrat: parseInt(this.state.carbohydrates),
         };
 
-        const response = await api.post('discover-food-adv', food);
+        const response = await api.post('discover-food-adv', food, {
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
         const newRecommendations = response.data;
+        console.log(newRecommendations);
+        console.log(this.state.foods);
+        console.log(this.state.recommendations);
 
         this.setState((prevState) => ({
             recommendations:
@@ -141,10 +158,60 @@ class Discover extends React.Component {
         event.stopPropagation();
     }
 
+    async addFavoriteFood(event, index) {
+        const favoriteFood = {
+            user_id: localStorage.getItem('user_id'),
+            food_id: this.state.foods.data[index].id_food,
+            foodname: this.state.foods.data[index].nama,
+            fat: this.state.foods.data[index].lemak,
+            protein: this.state.foods.data[index].protein,
+            carbohydrate: this.state.foods.data[index].karbohidrat,
+            calories: this.state.foods.data[index].energi,
+            image: this.state.foods.data[index].gambar,
+        };
+
+        const response = await api.post('favourite', favoriteFood);
+        console.log(response.data);
+
+        this.setState((prevState) => {
+            const updatedFoods = [...prevState.foods.data];
+            updatedFoods[index].is_favourite = true;
+
+            return {
+                favoriteFoodResponse: response.data,
+                isFavoriteFood: true,
+                foods: { ...prevState.foods, data: updatedFoods },
+            };
+        });
+    }
+
+    async deleteFavoriteFood(event, index) {
+        const unFavoriteFood = {
+            user_id: parseInt(localStorage.getItem('user_id')),
+            food_id: parseInt(this.state.foods.data[index].id_food),
+        }
+
+        const response = await api.delete('favourite', { data: unFavoriteFood });
+
+        console.log(response.data);
+
+        this.setState(prevState => {
+            const updatedFoods = [...prevState.foods.data];
+            updatedFoods[index].is_favourite = false;
+
+            return {
+                isFavoriteFood: false,
+                foods: { ...prevState.foods, data: updatedFoods },
+            }
+        })
+    }
+
+
     resetFoods() {
         this.setState(() => {
             return {
                 foods: [],
+                recommendations: [],
             };
         });
     }
@@ -174,11 +241,13 @@ class Discover extends React.Component {
     }
 
     render() {
-        const { foods } = this.state;
         let slides = [];
 
-        if (foods.data && foods.data.length > 0) {
-            slides = foods.data.map((item) => (
+        console.log(this.state.foods);
+        console.log(this.state.foods.data);
+        console.log(this.state.favoriteFoodResponse);
+        if (this.state.foods) {
+            slides = this.state.foods.data?.map((item, index) => (
                 <FoodItem
                     key={item.id_food}
                     foodName={item.nama}
@@ -187,6 +256,8 @@ class Discover extends React.Component {
                     calValue={item.energi}
                     proValue={item.protein}
                     carboValue={item.karbohidrat}
+                    favorite={item.is_favourite === false ? (event) => this.addFavoriteFood(event, index) : (event) => this.deleteFavoriteFood(event, index)}
+                    favoriteIcon={item.is_favourite === true ? favorite_icon : unfavorite_icon}
                 />
             ));
         } else {
@@ -204,7 +275,7 @@ class Discover extends React.Component {
                 >
                     <div className="w-1/3">
                         <p className="font-medium">
-                            Temukan makanan sehat favorit dengan{' '}
+                            Temukan makanan sehat favorit dengan
                             <span className="font-bold">GolekFood</span>
                         </p>
                         <div className="flex space-x-2 my-8">
@@ -303,23 +374,23 @@ class Discover extends React.Component {
                     <div className="w-2/3 pl-4">
                         <p className="font-medium text-center text-xl mb-16">Rekomendasi</p>
                         <div className="w-11/12 h-fit m-auto">
-                            {foods.data && foods.data.length > 0 && (
+                            {this.state.foods.data && this.state.foods.data.length > 0 && (
                                 <Carousel
                                     ref={this.carouselRef}
-                                    key={foods.data.length}
+                                    key={this.state.foods.data.length}
                                     slides={slides}
                                     plugins={[
                                         {
                                             resolve: arrowsPlugin,
                                             options: {
                                                 arrowLeft:
-                                                    foods.data.length > 1 ? (
+                                                    this.state.foods.data.length > 1 ? (
                                                         <button>
                                                             <img src={left_arrow} alt="left-arrow" />
                                                         </button>
                                                     ) : null,
                                                 arrowRight:
-                                                    foods.data.length > 1 ? (
+                                                    this.state.foods.data.length > 1 ? (
                                                         <button>
                                                             <img src={right_arrow} alt="right-arrow" />
                                                         </button>

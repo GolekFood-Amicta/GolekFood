@@ -1,11 +1,11 @@
 import React from "react";
 import UserComponent from "./UserComponent";
 import SignInButton from "./SignInButton";
-import userData from "../data/UserData";
 import api from "../api/api";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import apiBaseURL from "../api/apiBaseURL";
 
 function RightNavBarComponent() {
     const [user, setUser] = useState(null);
@@ -40,7 +40,7 @@ function RightNavBarComponent() {
     return (
         <>
             {
-                localStorage.getItem('token') ? <UserComponent name={user.data.name} image={user.data.avatar === 'default-profile.png' ? userData[0].photo : ''} onClick={showDropdown} /> : <SignInButton />
+                user && localStorage.getItem('token') ? <UserComponent name={user.data.name} image={`${apiBaseURL}storage/image/${user.data.avatar}`} onClick={showDropdown} /> : <SignInButton />
             }
             {
                 localStorage.getItem('token') ? <div className={`absolute ${dropdown ? 'block' : 'hidden'} flex flex-col justify-start top-20 right-16 w-40 bg-black bg-opacity-50 text-white rounded-xl`}>
@@ -52,7 +52,11 @@ function RightNavBarComponent() {
                         </Link>
                     </button>
                     <button onClick={toggleLogout} className="hover:bg-red-500 hover:bg-opacity-50 transition h-10 rounded-xl">
-                        Keluar
+                        <Link to={'/'}>
+                            <div className="w-full h-10 flex justify-center items-center">
+                                Keluar
+                            </div>
+                        </Link>
                     </button>
                 </div> : null
             }
