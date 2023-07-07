@@ -4,13 +4,12 @@ import SignInButton from "./SignInButton";
 import api from "../api/api";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import apiBaseURL from "../api/apiBaseURL";
 
 function RightNavBarComponent() {
     const [user, setUser] = useState(null);
     const [dropdown, setDropdown] = useState(false);
-    const [isLogout, setLogout] = useState(false);
 
     useEffect(() => {
         async function getUser() {
@@ -26,7 +25,7 @@ function RightNavBarComponent() {
     }
 
     const toggleLogout = () => {
-        setLogout(isLogout => !isLogout);
+        localStorage.clear();
     }
 
     if (!user) {
@@ -59,9 +58,6 @@ function RightNavBarComponent() {
                         </Link>
                     </button>
                 </div> : null
-            }
-            {
-                isLogout ? localStorage.clear() : null
             }
         </>
     );
