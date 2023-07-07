@@ -19,7 +19,7 @@ jobs:
         with:
           submodules: true
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --force --frozen-lockfile
       - name: Build
         run: |
           yarn add --dev @babel/plugin-proposal-private-property-in-object
