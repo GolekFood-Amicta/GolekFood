@@ -11,7 +11,7 @@ import Data from "./pages/Data";
 
 function GolekFoodsApp() {
   return (
-    <BrowserRouter basename="/build">
+    <BrowserRouter basename="/">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/discover" element={<Discover />} />

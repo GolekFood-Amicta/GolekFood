@@ -15,6 +15,7 @@ import favorite_icon from '../../assets/favorite.svg';
 import unfavorite_icon from '../../assets/unfavorite.svg';
 import '@brainhubeu/react-carousel/lib/style.css';
 import LimitWarning from '../LimitWarning';
+import vector from '../../assets/vector/vector-discover.svg';
 
 function Level100({ level }) {
     if (level >= 0 && level < 33) {
@@ -68,7 +69,6 @@ class Discover extends React.Component {
             currentSlide: 0,
         };
 
-        this.carouselRef = React.createRef();
         this.onFatChangeEventHandler = this.onFatChangeEventHandler.bind(this);
         this.onCaloriesChangeEventHandler =
             this.onCaloriesChangeEventHandler.bind(this);
@@ -84,14 +84,8 @@ class Discover extends React.Component {
         this.deleteFavoriteFood = this.deleteFavoriteFood.bind(this);
         this.onChangeValue = this.onChangeValue.bind(this);
         this.resetFoods = this.resetFoods.bind(this);
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        const { currentSlide } = this.state;
-
-        if (prevState.currentSlide !== currentSlide) {
-            this.setState({ disablePrevious: currentSlide === 0 });
-        }
+        this.handleClickNext = this.handleClickNext.bind(this);
+        this.handleClickPrevious = this.handleClickPrevious.bind(this);
     }
 
     onFatChangeEventHandler(event) {
@@ -101,30 +95,6 @@ class Discover extends React.Component {
             };
         });
     }
-
-    handleClickNext = () => {
-        const { currentSlide, foods } = this.state;
-        const totalSlides = foods.data?.length || 0;
-        const isLastSlide = currentSlide === totalSlides - 2;
-
-        if (!isLastSlide && currentSlide < 8) {
-            this.onChangeValue(currentSlide + 1);
-            if (currentSlide === 7) {
-                this.setState({ disableNext: true });
-            }
-        }
-    };
-
-    handleClickPrevious = () => {
-        const { currentSlide } = this.state;
-
-        if (currentSlide > 0) {
-            this.onChangeValue(currentSlide - 1);
-            if (currentSlide === 1) {
-                this.setState({ disableNext: false });
-            }
-        }
-    };
 
     onCaloriesChangeEventHandler(event) {
         this.setState(() => {
@@ -153,6 +123,24 @@ class Discover extends React.Component {
     onChangeValue(value) {
         this.setState({ currentSlide: value });
     }
+
+    handleClickNext = () => {
+        const { currentSlide, foods } = this.state;
+        const totalSlides = foods.data?.length || 0;
+        const isLastSlide = currentSlide === totalSlides - 2;
+
+        if (!isLastSlide && currentSlide < 8) {
+            this.onChangeValue(currentSlide + 1);
+        }
+    };
+
+    handleClickPrevious = () => {
+        const { currentSlide } = this.state;
+
+        if (currentSlide > 0) {
+            this.onChangeValue(currentSlide - 1);
+        }
+    };
 
     async handleSubmit(event) {
         event.preventDefault();
@@ -308,13 +296,12 @@ class Discover extends React.Component {
                     <Feedback toggle={this.toggleShowFeedback} />
                 ) : null}
                 <div
-                    className={`${this.state.showFeedback ? 'blur' : 'blur-none'
+                    className={`${this.state.showFeedback || this.state.foods.message === 'Sudah Mencapai limit harian user biasa' ? 'blur' : 'blur-none'
                         } z-0 flex px-16 pt-8`}
                 >
                     <div className="w-1/3">
                         <p className="font-medium">
-                            Temukan makanan sehat favorit dengan
-                            <span className="font-bold">GolekFood</span>
+                            Temukan makanan sehat favorit dengan <span className="font-bold">GolekFood</span>
                         </p>
                         <div className="flex space-x-2 my-8">
                             <button
@@ -333,7 +320,7 @@ class Discover extends React.Component {
 
                         <form
                             onSubmit={this.handleSubmit}
-                            className="mb-16 mt-8 grid grid-cols-10 gap-2 items-center"
+                            className="mt-8 mb-8 grid grid-cols-10 gap-2 items-center"
                         >
                             <Slider
                                 sliderTitle={'Lemak'}
@@ -405,12 +392,17 @@ class Discover extends React.Component {
                                 Temukan Makanan
                             </button>
                         </form>
-                        <p className="text-xs mb-4">
+                        <p className="text-xs">
                             *Komposisi gizi pangan dihitung per 100 g
                         </p>
                     </div>
                     <div className="w-2/3 pl-4">
-                        <p className="font-medium text-center text-xl mb-16">Rekomendasi</p>
+                        {
+                            this.state.foods.data && this.state.foods.data.length > 0 ?
+                                <p className="font-medium text-center text-xl mb-16">Rekomendasi</p>
+                                :
+                                <img src={vector} alt='vector' className='m-auto' />
+                        }
                         <div className="w-11/12 h-fit m-auto">
                             {this.state.foods.data && this.state.foods.data.length > 0 && (
                                 <Carousel
@@ -424,21 +416,27 @@ class Discover extends React.Component {
                                             options: {
                                                 arrowLeft:
                                                     this.state.foods.data.length > 1 ? (
-                                                        <button
-                                                            onClick={this.handleClickPrevious}
-                                                            disabled={this.state.disablePrevious}
-                                                        >
-                                                            <img src={left_arrow} alt="left-arrow" />
-                                                        </button>
+                                                        <>
+                                                            {
+                                                                this.state.currentSlide > 0 ? <button
+                                                                    onClick={this.handleClickPrevious}
+                                                                >
+                                                                    <img src={left_arrow} alt="left-arrow" />
+                                                                </button> : null
+                                                            }
+                                                        </>
                                                     ) : null,
                                                 arrowRight:
                                                     this.state.foods.data.length > 1 ? (
-                                                        <button
-                                                            disabled={this.state.disableNext}
-                                                            onClick={this.handleClickNext}
-                                                        >
-                                                            <img src={right_arrow} alt="right-arrow" />
-                                                        </button>
+                                                        <>
+                                                            {
+                                                                this.state.currentSlide < 8 ? <button
+                                                                    onClick={this.handleClickNext}
+                                                                >
+                                                                    <img src={right_arrow} alt="right-arrow" />
+                                                                </button> : null
+                                                            }
+                                                        </>
                                                     ) : null,
                                             },
                                         },
@@ -454,13 +452,15 @@ class Discover extends React.Component {
                         </div>
                     </div>
                 </div>
-                <button
-                    onClick={this.toggleShowFeedback}
-                    className="flex space-x-4 fixed bottom-8 right-8 bg-white px-4 py-2 items-center justify-center rounded-xl hover:border-b-GF-green hover:border-2"
-                >
-                    <span className="font-medium">Berikan Masukan</span>
-                    <img src={feedback_icon} alt="feedback" />
-                </button>
+                {
+                    this.state.foods.message !== 'Sudah Mencapai limit harian user biasa' ? <button
+                        onClick={this.toggleShowFeedback}
+                        className="flex space-x-4 fixed bottom-8 right-8 bg-white px-4 py-2 items-center justify-center rounded-xl hover:border-b-GF-green hover:border-2"
+                    >
+                        <span className="font-medium">Berikan Masukan</span>
+                        <img src={feedback_icon} alt="feedback" />
+                    </button> : null
+                }
             </div>
         );
     }

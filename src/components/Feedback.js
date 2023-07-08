@@ -101,7 +101,7 @@ class Feedback extends React.Component {
                         </button>
                     </div> : null
                 }
-                <div className="z-[800] shadow fixed m-auto top-0 bottom-0 right-0 left-0 w-1/2 h-5/6 rounded-3xl p-8 bg-white">
+                <div className="z-[999] shadow fixed m-auto top-0 bottom-0 right-0 left-0 w-1/2 h-5/6 rounded-3xl p-8 bg-white">
                     <div className="flex justify-end">
                         <button onClick={this.closeFeedback} className="text-2xl">&times;</button>
                     </div>
