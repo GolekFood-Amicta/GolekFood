@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import NavBar from '../NavBar';
 import handWaving from '../../assets/hand-waving.svg';
 import vector from '../../assets/vector/vector-no-favorite-food.svg';
@@ -114,21 +114,13 @@ class Profile extends React.Component {
 		formData.append('password', this.state.password);
 		formData.append('file', this.state.image);
 
-		// const updateProfile = {
-		// 	name: this.state.name,
-		// 	email: this.state.email,
-		// 	address: this.state.address,
-		// 	password: this.state.password,
-		// 	file: formData,
-		// };
-
 		const postProfileResponse = await api.post(`user?_method=PUT`, formData, {
 			headers: {
 				'Content-Type': 'multipart/form-data',
 				Authorization: `Bearer ${localStorage.getItem('token')}`,
 			},
 		});
-		
+
 		this.setState(() => {
 			return {
 				postProfileResponse: postProfileResponse.data,
@@ -155,9 +147,13 @@ class Profile extends React.Component {
 		const response = await api.post('favourite', favoriteFood);
 		console.log(response.data);
 
-		this.setState(() => {
+		this.setState((prevState) => {
+			const updatedFoods = [...prevState.favoriteResponse.data];
+			updatedFoods[index].is_favourite = true;
+
 			return {
-				// addFavoriteFoodResponse: response.data,
+				addFavoriteFoodResponse: response.data,
+				favoriteResponse: { ...prevState.favoriteResponse, data: updatedFoods },
 				isFavoriteFood: true,
 			}
 		})
@@ -166,7 +162,7 @@ class Profile extends React.Component {
 	}
 
 	async deleteFavoriteFood(event, index) {
-		// event.preventDefault();
+		event.preventDefault();
 
 		const unFavoriteFood = {
 			user_id: parseInt(localStorage.getItem('user_id')),
@@ -177,9 +173,13 @@ class Profile extends React.Component {
 
 		console.log(response.data);
 
-		this.setState(() => {
+		this.setState((prevState) => {
+			const updatedFoods = [...prevState.favoriteResponse.data];
+			updatedFoods[index].is_favourite = false;
+
 			return {
-				// deleteFavoriteFoodResponse: response.data,
+				deleteFavoriteFoodResponse: response.data,
+				favoriteResponse: { ...prevState.favoriteResponse.data, data: updatedFoods },
 				isFavoriteFood: false,
 			}
 		})
@@ -213,7 +213,6 @@ class Profile extends React.Component {
 								<form
 									onSubmit={this.handleSubmit}
 									className="space-y-4"
-									// encType="multipart/form-data"
 								>
 									{this.state.editMode ? (
 										<label>
@@ -322,8 +321,8 @@ class Profile extends React.Component {
 												key={item.food_id}
 												name={item.foodname}
 												image={item.image}
-												favorite={this.state.isFavoriteFood === true ? (event) => this.deleteFavoriteFood(event, index) : (event) => this.addFavoriteFood(event, index)}
-												favoriteIcon={this.state.isFavoriteFood === true ? favorite_icon : unfavorite_icon}
+												favorite={item.is_favourite === true ? (event) => this.deleteFavoriteFood(event, index) : (event) => this.addFavoriteFood(event, index)}
+												favoriteIcon={item.is_favourite === true ? favorite_icon : unfavorite_icon}
 											/>
 										))
 									) : (

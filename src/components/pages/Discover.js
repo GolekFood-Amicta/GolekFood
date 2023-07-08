@@ -65,7 +65,6 @@ class Discover extends React.Component {
             foods: [],
             recommendations: [],
             favoriteFoodResponse: null,
-            isFavoriteFood: false,
             currentSlide: 0,
         };
 
@@ -192,7 +191,6 @@ class Discover extends React.Component {
 
             return {
                 favoriteFoodResponse: response.data,
-                isFavoriteFood: true,
                 foods: { ...prevState.foods, data: updatedFoods },
             };
         });
@@ -213,7 +211,6 @@ class Discover extends React.Component {
             updatedFoods[index].is_favourite = false;
 
             return {
-                isFavoriteFood: false,
                 foods: { ...prevState.foods, data: updatedFoods },
             };
         });
