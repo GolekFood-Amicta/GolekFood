@@ -1,5 +1,5 @@
 import React from "react";
-import * as LottiePlayer from "@lottiefiles/lottie-player";
+//import * as LottiePlayer from "@lottiefiles/lottie-player";
 import { Link } from "react-router-dom";
 
 function SignUpSuccessInfo({ className }) {
