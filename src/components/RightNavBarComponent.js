@@ -11,14 +11,25 @@ function RightNavBarComponent() {
     const [user, setUser] = useState(null);
     const [dropdown, setDropdown] = useState(false);
 
+    // useEffect(() => {
+    //     async function getUser() {
+    //         const response = await api.get(`user/${localStorage.getItem('user_id')}`);
+    //         setUser(response.data);
+    //     }
+    //     getUser();
+    //     console.log(user);
+    // }, [])
+
     useEffect(() => {
-        async function getUser() {
-            const response = await api.get(`user/${localStorage.getItem('user_id')}`);
-            setUser(response.data);
-        }
-        getUser();
-        console.log(user);
-    }, [])
+    async function getUser() {
+        const response = await api.get(`user/${localStorage.getItem('user_id')}`);
+        setUser(response.data);
+        console.log(response.data); // Memperbarui console.log setelah setUser
+    }
+    
+    getUser();
+}, [localStorage.getItem('user_id')]); // Menambahkan localStorage.getItem('user_id') ke dalam array dependensi
+
 
     const showDropdown = () => {
         setDropdown(dropdown => !dropdown);
