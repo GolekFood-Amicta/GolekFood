@@ -14,8 +14,8 @@ import api from '../../api/api';
 import favorite_icon from '../../assets/favorite.svg';
 import unfavorite_icon from '../../assets/unfavorite.svg';
 import '@brainhubeu/react-carousel/lib/style.css';
-import LimitWarning from '../LimitWarning';
 import vector from '../../assets/vector/vector-discover.svg';
+import { Navigate } from 'react-router-dom';
 
 function Level100({ level }) {
     if (level >= 0 && level < 33) {
@@ -285,10 +285,6 @@ class Discover extends React.Component {
         return (
             <div>
                 <NavBar />
-                {
-                    this.state.foods.message === "Sudah Mencapai limit harian user biasa" ?
-                        <LimitWarning /> : null
-                }
                 {this.state.showFeedback ? (
                     <Feedback toggle={this.toggleShowFeedback} />
                 ) : null}
@@ -388,6 +384,10 @@ class Discover extends React.Component {
                             >
                                 Temukan Makanan
                             </button>
+                            {
+                                this.state.foods.message === "Sudah Mencapai limit harian user biasa" ?
+                                    <Navigate to={'/Subscription'} replace={true} /> : null
+                            }
                         </form>
                         <p className="text-xs">
                             *Komposisi gizi pangan dihitung per 100 g
