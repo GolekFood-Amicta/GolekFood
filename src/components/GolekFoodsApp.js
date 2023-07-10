@@ -8,6 +8,9 @@ import News from "./pages/News";
 import Profile from "./pages/Profile";
 import DetailNews from "./pages/DetailNews";
 import Data from "./pages/Data";
+import SurveyPurpose from "./pages/SurveyPurpose";
+import SurveyData from "./pages/SurveyData";
+import Subscription from "./pages/Subscription";
 
 function GolekFoodsApp() {
   return (
@@ -21,6 +24,9 @@ function GolekFoodsApp() {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/survey-purpose" element={<SurveyPurpose />} />
+        <Route path="/survey-data" element={<SurveyData />} />
+        <Route path="/subscription" element={<Subscription />} />
       </Routes>
     </BrowserRouter>
   );
