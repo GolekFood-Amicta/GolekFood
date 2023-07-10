@@ -18,6 +18,20 @@ function formatDate(date) {
     })
 }
 
+// function DetailNews() {
+//     const location = useLocation();
+//     console.log(location);
+//     const [detailNews, setDetailNews] = useState(null);
+
+//     useEffect(() => {
+//         async function getDetailNews() {
+//             const response = await api.get(`news/${location.state.id}`);
+//             setDetailNews(response.data);
+//         }
+//         getDetailNews();
+//         console.log(detailNews);
+//     }, []);
+
 function DetailNews() {
     const location = useLocation();
     console.log(location);
@@ -27,10 +41,10 @@ function DetailNews() {
         async function getDetailNews() {
             const response = await api.get(`news/${location.state.id}`);
             setDetailNews(response.data);
+            console.log(response.data); // Memperbarui console.log setelah setDetailNews
         }
         getDetailNews();
-        console.log(detailNews);
-    }, []);
+    }, [location.state.id]);
 
     return (
         <div>

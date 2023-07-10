@@ -1,3 +1,11 @@
+// import React from "react";
+// import UserComponent from "./UserComponent";
+// import SignInButton from "./SignInButton";
+// import api from "../api/api";
+// import { useState } from "react";
+// import { useEffect } from "react";
+// import { Link } from "react-router-dom";
+// import apiBaseURL from "../api/apiBaseURL";
 import React from "react";
 import UserComponent from "./UserComponent";
 import SignInButton from "./SignInButton";
@@ -7,18 +15,34 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import apiBaseURL from "../api/apiBaseURL";
 
+// function RightNavBarComponent() {
+//     const [user, setUser] = useState(null);
+//     const [dropdown, setDropdown] = useState(false);
+
+//     useEffect(() => {
+//         async function getUser() {
+//             const response = await api.get(`user/${localStorage.getItem('user_id')}`);
+//             setUser(response.data);
+//         }
+//         getUser();
+//         console.log(user);
+//     }, [])
 function RightNavBarComponent() {
     const [user, setUser] = useState(null);
     const [dropdown, setDropdown] = useState(false);
 
+    const userId = localStorage.getItem('user_id'); // Ekstrak ekspresi localStorage.getItem('user_id') ke variabel terpisah
+
     useEffect(() => {
         async function getUser() {
-            const response = await api.get(`user/${localStorage.getItem('user_id')}`);
+            const response = await api.get(`user/${userId}`);
             setUser(response.data);
+            console.log(response.data);
         }
+
         getUser();
-        console.log(user);
-    }, [])
+    }, [userId]);
+
 
     const showDropdown = () => {
         setDropdown(dropdown => !dropdown);
