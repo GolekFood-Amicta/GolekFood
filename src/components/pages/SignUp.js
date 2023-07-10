@@ -117,6 +117,9 @@ class SignUp extends React.Component {
                                 Email
                                 <input type="email" name="email" value={this.state.email} onChange={this.onEmailChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
                                 {
+                                    this.state.response.message === 'Email wajib diisi' ? <p className="text-xs text-red-500">{this.state.response.message}</p> : null
+                                }
+                                {
                                     this.state.response.message === 'Email sudah terdaftar' ? <p className="text-xs text-red-500">{this.state.response.message}</p> : null
                                 }
                             </label>
