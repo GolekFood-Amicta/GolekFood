@@ -1,4 +1,3 @@
-//import React, { createRef } from "react";
 import React from 'react';
 import api from "../../api/api";
 import Logo from "../Logo";
@@ -89,7 +88,9 @@ class SignUp extends React.Component {
     render() {
         return (
             <div className="flex">
-                <SignUpSuccessInfo className={`z-[999] fixed ${this.state.response.message === 'User berhasil teregistrasi' ? '' : 'hidden'} shadow m-auto top-0 bottom-0 right-0 left-0 bg-white w-1/4 h-fit rounded-3xl p-8`} />
+                {
+                    this.state.response.message === 'User berhasil teregistrasi' ? <SignUpSuccessInfo className='z-[999] shadow m-auto top-0 bottom-0 right-0 left-0 bg-white w-1/4 h-fit rounded-3xl p-8' /> : null
+                }
                 {
                     this.state.response.message === 'User berhasil teregistrasi' ? <div className="z-50 w-screen h-screen backdrop-blur fixed" /> : null
                 }
@@ -145,7 +146,7 @@ class SignUp extends React.Component {
                             </label>
                             <div className="h-8" />
                             <button className="w-full mb-4 bg-GF-green text-white py-4 rounded-xl hover:bg-GF-green">Daftar</button>
-                            <p className="text-left text-sm font-medium">Sudah punya akun? <Link to={"/SignIn"}><span className="text-black underline hover:font-semibold hover:text-GF-green">Login Sekarang</span></Link></p>
+                            <p className="mb-8 text-left text-sm font-medium">Sudah punya akun? <Link to={"/SignIn"}><span className="text-black underline hover:font-semibold hover:text-GF-green">Login Sekarang</span></Link></p>
                         </form>
                     </div>
                 </div>
