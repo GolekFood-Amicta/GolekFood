@@ -54,11 +54,11 @@ function RightNavBarComponent() {
                         </Link>
                     </button>
                     <button onClick={toggleLogout} className="hover:bg-red-500 hover:bg-opacity-50 transition h-10 rounded-xl">
-                        <Link to={'/'}>
+                        <a href="/">
                             <div className="w-full h-10 flex justify-center items-center">
                                 Keluar
                             </div>
-                        </Link>
+                        </a>
                     </button>
                 </div> : null
             }
