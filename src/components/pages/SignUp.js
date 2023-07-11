@@ -109,18 +109,12 @@ class SignUp extends React.Component {
                         <form onSubmit={this.handleSubmit}>
                             <label className="text-sm font-medium">
                                 Nama
-                                <input type="text" name="nama" value={this.state.name} onChange={this.onNameChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
-                                {
-                                    this.state.response.message === 'Nama Lengkap wajib diisi' ? <p className="text-xs text-red-500">{this.state.response.message}</p> : null
-                                }
+                                <input type="text" name="nama" value={this.state.name} onChange={this.onNameChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" required={true} />
                             </label>
                             <div className="h-8" />
                             <label className="text-sm font-medium">
                                 Email
-                                <input type="email" name="email" value={this.state.email} onChange={this.onEmailChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
-                                {
-                                    this.state.response.message === 'Email wajib diisi' ? <p className="text-xs text-red-500">{this.state.response.message}</p> : null
-                                }
+                                <input type="email" name="email" value={this.state.email} onChange={this.onEmailChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" required={true} />
                                 {
                                     this.state.response.message === 'Email sudah terdaftar' ? <p className="text-xs text-red-500">{this.state.response.message}</p> : null
                                 }
@@ -128,10 +122,7 @@ class SignUp extends React.Component {
                             <div className="h-8" />
                             <label className="text-sm font-medium">
                                 Password
-                                <input type="password" name="password" value={this.state.password} onChange={this.onPasswordChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
-                                {
-                                    this.state.response.message === 'Password wajib diisi' ? <p className="text-xs text-red-500">{this.state.response.message}</p> : null
-                                }
+                                <input type="password" name="password" value={this.state.password} onChange={this.onPasswordChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" required={true} />
                                 {
                                     this.state.response.message === 'Password minimal 6 karakter' ? <p className="text-xs text-red-500">{this.state.response.message}</p> : null
                                 }
@@ -139,7 +130,7 @@ class SignUp extends React.Component {
                             <div className="h-8" />
                             <label className="text-sm font-medium">
                                 Konfirmasi Password
-                                <input type="password" name="konfirmasi password" value={this.state.password_confirmation} onChange={this.onPasswordConfirmationChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
+                                <input type="password" name="konfirmasi password" value={this.state.password_confirmation} onChange={this.onPasswordConfirmationChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" required={true} />
                                 {
                                     this.state.response.message === 'Password tidak sama dengan konfirmasi password' ? <p className="text-xs text-red-500">{this.state.response.message}</p> : null
                                 }

@@ -50,10 +50,11 @@ class SignIn extends React.Component {
             localStorage.setItem('user_id', response.data.data.user.id);
             console.log('Berhasil login', response.data);
 
-            this.setState({
-                email: '',
-                password: '',
-                error: ''
+            this.setState(() => {
+                return {
+                    email: '',
+                    password: '',
+                }
             })
         } catch (error) {
             this.setState({ error: 'Login gagal.' });
@@ -80,21 +81,17 @@ class SignIn extends React.Component {
                         <form onSubmit={this.handleSubmit} >
                             <label className="text-sm font-medium mb-2">
                                 Email
-                                <input type="email" name="email" value={this.state.email} onChange={this.onEmailChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
+                                <input type="email" name="email" value={this.state.email} onChange={this.onEmailChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" required={true} />
                             </label>
                             <div className="h-8" />
                             <label className="text-sm font-medium mb-2">
                                 Password
-                                <input type="password" name="password" value={this.state.password} onChange={this.onPasswordChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" />
+                                <input type="password" name="password" value={this.state.password} onChange={this.onPasswordChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" required={true} />
                             </label>
-                            <div className="flex justify-between mt-8 mb-8">
-                                <div className="flex items-center space-x-2">
-                                    <input type="checkbox" className="accent-GF-green w-5 h-5 border-2 border-GF-green rounded-xl focus:outline-none hover:border-GF-green hover:ring-2 hover:ring-GF-green" />
-                                    <span className="text-xs font-normal">Remember me</span>
-                                </div>
+                            <div className="flex justify-end mt-8 mb-8">
                                 <Link className="text-xs hover:font-medium hover:text-GF-green">Forgot Password?</Link>
                             </div>
-                            <button className="w-full h-14 mb-16 bg-GF-green text-white rounded-xl hover:bg-GF-green">
+                            <button type="submit" className="w-full h-14 mb-16 bg-GF-green text-white rounded-xl hover:bg-GF-green">
                                 Sign In
                             </button>
                             {
