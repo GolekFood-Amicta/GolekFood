@@ -237,21 +237,7 @@ class Profile extends React.Component {
 											}
 											onChange={this.onNameChangeEventHandler}
 											disabled={!this.state.editMode}
-											className="font-light border-b-2 border-black bg-transparent outline-none"
-										/>
-									</label>
-									<label className="font-medium flex flex-col">
-										Email
-										<input
-											type="email"
-											name="email"
-											value={
-												!this.state.editMode
-													? this.state.getProfileResponse.data.email
-													: this.state.email
-											}
-											onChange={this.onEmailChangeEventHandler}
-											disabled={!this.state.editMode}
+											required={true}
 											className="font-light border-b-2 border-black bg-transparent outline-none"
 										/>
 									</label>
@@ -267,6 +253,18 @@ class Profile extends React.Component {
 											}
 											onChange={this.onAddressChangeEventHandler}
 											disabled={!this.state.editMode}
+											required={true}
+											className="font-light border-b-2 border-black bg-transparent outline-none"
+										/>
+									</label>
+									<label className="font-medium flex flex-col">
+										Email
+										<input
+											type="email"
+											name="email"
+											value={this.state.getProfileResponse.data.email}
+											onChange={this.onEmailChangeEventHandler}
+											disabled={true}
 											className="font-light border-b-2 border-black bg-transparent outline-none"
 										/>
 									</label>
@@ -275,11 +273,9 @@ class Profile extends React.Component {
 										<input
 											type="password"
 											name="password"
-											value={
-												!this.state.editMode ? '********' : this.state.password
-											}
+											value={'********'}
 											onChange={this.onPasswordChangeEventHandler}
-											disabled={!this.state.editMode}
+											disabled={true}
 											className="font-light border-b-2 border-black bg-transparent outline-none"
 										/>
 									</label>
@@ -287,9 +283,12 @@ class Profile extends React.Component {
 										<div className="flex space-x-2">
 											<button
 												type="submit"
-												className="bg-GF-green w-full py-4 rounded-xl font-medium text-white"
+												disabled={this.state.name !== '' && this.state.address !== '' ? false : true}
+												className={`${this.state.name !== '' && this.state.address !== '' ? 'bg-GF-green' : 'bg-GF-light-grey'} transition duration-500 w-full py-4 rounded-xl font-medium text-white`}
 											>
-												Simpan profil
+												<a href='/Profile'>
+													Simpan profil
+												</a>
 											</button>
 											<button
 												onClick={this.toggleEditMode}
