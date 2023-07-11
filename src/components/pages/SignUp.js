@@ -89,7 +89,7 @@ class SignUp extends React.Component {
         return (
             <div className="flex">
                 {
-                    this.state.response.message === 'User berhasil teregistrasi' ? <SignUpSuccessInfo className='z-[999] shadow m-auto top-0 bottom-0 right-0 left-0 bg-white w-1/4 h-fit rounded-3xl p-8' /> : null
+                    this.state.response.message === 'User berhasil teregistrasi' ? <SignUpSuccessInfo className='z-[999] fixed shadow m-auto top-0 bottom-0 right-0 left-0 bg-white w-1/4 h-fit rounded-3xl p-8' /> : null
                 }
                 {
                     this.state.response.message === 'User berhasil teregistrasi' ? <div className="z-50 w-screen h-screen backdrop-blur fixed" /> : null
