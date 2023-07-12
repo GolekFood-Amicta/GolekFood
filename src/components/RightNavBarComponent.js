@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import apiBaseURL from "../api/apiBaseURL";
+import premium from "../assets/premium.svg";
 
 function RightNavBarComponent() {
     const [user, setUser] = useState(null);
@@ -46,7 +47,7 @@ function RightNavBarComponent() {
     return (
         <>
             {
-                user && localStorage.getItem('token') ? <UserComponent name={user.data.name} image={`${apiBaseURL}storage/image/${user.data.avatar}`} onClick={showDropdown} /> : <SignInButton />
+                user && localStorage.getItem('token') ? <UserComponent name={user.data.name} image={`${apiBaseURL}storage/image/${user.data.avatar}`} isPremium={user.data.subscription === true ? <img src={premium} alt="premium" /> : null} onClick={showDropdown} /> : <SignInButton />
             }
             {
                 localStorage.getItem('token') ? <div className={`absolute ${dropdown ? 'block' : 'hidden'} flex flex-col justify-start top-20 right-16 w-40 bg-black bg-opacity-50 text-white rounded-xl`}>

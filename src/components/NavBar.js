@@ -37,7 +37,7 @@ function NavBar() {
                 <div className="flex justify-start items-center">
                     <Logo />
                 </div>
-                <ul className="flex space-x-8 font-semibold m-auto">
+                <ul className="flex justify-between w-full font-semibold m-auto">
                     <li>
                         <Link to={"/"} className="text-GF-grey hover:font-extrabold focus:font-extrabold focus:text-GF-green">Beranda</Link>
                     </li>
