@@ -25,6 +25,7 @@ class Subscription extends React.Component {
         this.setPayment = this.setPayment.bind(this);
         this.handleProof = this.handleProof.bind(this);
         this.handleConfirmPayment = this.handleConfirmPayment.bind(this);
+        this.closePaymentDetail = this.closePaymentDetail.bind(this);
 
     }
 
@@ -76,6 +77,14 @@ class Subscription extends React.Component {
         event.stopPropagation();
     }
 
+    closePaymentDetail() {
+        this.setState(() => {
+            return {
+                price: 0,
+            }
+        })
+    }
+
     render() {
         console.log(this.state.price);
         return (
@@ -86,6 +95,11 @@ class Subscription extends React.Component {
                         this.state.price > 0
                             ?
                             <div className="z-[999] px-20 py-10 w-fit h-fit bg-white m-auto fixed shadow-2xl rounded-3xl top-0 bottom-0 left-0 right-0">
+                                <div className="flex justify-end">
+                                    <button onClick={this.closePaymentDetail} className="text-2xl">
+                                        &times;
+                                    </button>
+                                </div>
                                 <p className="text-center text-2xl font-semibold mb-8">Detail Pembayaran</p>
                                 <p className="text-center text-3xl font-medium mb-4">Langganan Bulanan</p>
                                 <div className="h-0.5 bg-black" />
