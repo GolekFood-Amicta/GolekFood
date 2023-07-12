@@ -10,7 +10,27 @@ import linkedin from "../../assets/social/linkedin.svg";
 import instagram from "../../assets/social/instagram.svg";
 import facebook from "../../assets/social/facebook.svg";
 import { useState } from "react";
-import { useEffect } from "react";
+
+function FavoriteFoodItemByUser({ foodName, foodImage, fatValue, calValue, proValue, carboValue }) {
+    return (
+        <div className="relative w-11/12 h-[500px]">
+            <div className="absolute w-full h-fit bottom-0 left-0 rounded-2xl bg-black bg-opacity-50 backdrop-blur text-white">
+                <p className="pt-2 font-medium text-lg text-center">{foodName}</p>
+                <div className="p-4 grid grid-cols-6 gap-2">
+                    <span className="col-span-2">{fatValue} g</span>
+                    <span className="col-span-4">Lemak</span>
+                    <span className="col-span-2">{calValue} kal</span>
+                    <span className="col-span-4">Kalori</span>
+                    <span className="col-span-2">{proValue} g</span>
+                    <span className="col-span-4">Protein</span>
+                    <span className="col-span-2">{carboValue} g</span>
+                    <span className="col-span-4">Karbohidrat</span>
+                </div>
+            </div>
+            <img src={foodImage} alt="food" className="w-full h-[500px] object-cover rounded-2xl" />
+        </div>
+    );
+}
 
 const reviews = [
     <div className="rounded-3xl bg-white mx-4 px-8 pt-16 pb-8 w-full">
@@ -30,6 +50,33 @@ const reviews = [
     </div>
 ];
 
+const favoriteFoodByUser = [
+    <FavoriteFoodItemByUser
+        foodName={'Abon'}
+        foodImage={"https://img-cdn.medkomtek.com/PbrY9X3ignQ8sVuj_LU9UXljyew=/0x0/smart/filters:quality(75):strip_icc():format(webp)/article/7g8ceHGDNMuttlBcXEl8d/original/099726800_1605161502-Mana-yang-Lebih-Sehat-Abon-Sapi-atau-Abon-Ayam-shutterstock_1361446550.jpg"}
+        fatValue={28.4}
+        calValue={280}
+        proValue={9.2}
+        carboValue={0}
+    />,
+    <FavoriteFoodItemByUser
+        foodName={'Sate Bandeng'}
+        foodImage={"https://asset.kompas.com/crops/4UfXhXtR7hK2atnUpqKRHGbhFuk=/3x0:700x465/750x500/data/photo/2021/02/16/602b2a91ca7f1.jpg"}
+        fatValue={16.8}
+        calValue={283}
+        proValue={12.1}
+        carboValue={20.9}
+    />,
+    <FavoriteFoodItemByUser
+        foodName={'Ikan Bandeng Presto'}
+        foodImage={"https://www.philips.com/c-dam/b2c/id_ID/experience/ho/cooking/iikan-goreng-thumbnail.jpg"}
+        fatValue={20.3}
+        calValue={296}
+        proValue={17.1}
+        carboValue={11.3}
+    />,
+]
+
 function Home() {
     const [favoriteFood, setFavoriteFood] = useState(null);
     const [warning, setWarning] = useState(false);
@@ -44,13 +91,13 @@ function Home() {
         setWarning(false);
     }
 
-    useEffect(() => {
-        async function getFavoriteFood() {
-            const response = await api.get('favourite');
-            setFavoriteFood(response.data);
-        }
-        getFavoriteFood();
-    }, []);
+    // useEffect(() => {
+    //     async function getFavoriteFood() {
+    //         const response = await api.get('favourite');
+    //         setFavoriteFood(response.data);
+    //     }
+    //     getFavoriteFood();
+    // }, []);
 
     return (
         <div>
@@ -119,9 +166,9 @@ function Home() {
             <section className="px-16 py-20">
                 <p className="text-center mb-16 font-semibold text-4xl text-GF-grey">Makanan <span className="text-GF-green">Favorit Pilihan</span> Pengguna</p>
                 <Carousel
-                    slides={favoriteFood && favoriteFood.data.map((item, index) => index < 3 ?
-                        <img src={"https://picsum.photos/500/700"} alt="favorite-food" className="rounded-3xl w-11/12  object-cover" />
-                        : null)}
+                    slides={
+                        favoriteFoodByUser
+                    }
                     plugins={[
                         'centered',
                         'infinite',
