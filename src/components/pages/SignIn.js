@@ -11,7 +11,8 @@ class SignIn extends React.Component {
         this.state = {
             email: '',
             password: '',
-            error: ''
+            error: '',
+            response: null,
         }
 
         this.onEmailChangeEventHandler = this.onEmailChangeEventHandler.bind(this);
@@ -46,16 +47,18 @@ class SignIn extends React.Component {
                 password
             });
 
-            localStorage.setItem('token', response.data.data.access_token);
-            localStorage.setItem('user_id', response.data.data.user.id);
-            console.log('Berhasil login', response.data);
+            if (response.data.success === true) {
+                localStorage.setItem('token', response.data.data.access_token);
+                localStorage.setItem('user_id', response.data.data.user.id);
+                console.log('Berhasil login', response.data);
+            }
 
             this.setState(() => {
                 return {
-                    email: '',
-                    password: '',
+                    response: response.data,
                 }
             })
+            console.log(response);
         } catch (error) {
             this.setState({ error: 'Login gagal.' });
             console.log(error);
@@ -87,6 +90,9 @@ class SignIn extends React.Component {
                             <label className="text-sm font-medium mb-2">
                                 Password
                                 <input type="password" name="password" value={this.state.password} onChange={this.onPasswordChangeEventHandler} className="border-2 border-black p-2 rounded-xl w-full" required={true} />
+                                {
+                                    this.state.response && this.state.response.success === false ? <p className="text-xs text-red-500">{this.state.response.message}</p> : null
+                                }
                             </label>
                             <div className="flex justify-end mt-8 mb-8">
                                 <Link className="text-xs hover:font-medium hover:text-GF-green">Forgot Password?</Link>
