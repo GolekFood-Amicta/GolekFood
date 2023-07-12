@@ -1,3 +1,3 @@
-const apiBaseURL = 'http://34.101.68.137:8000/';
+const apiBaseURL = 'https://admin.golekfood.xyz/';
 
 export default apiBaseURL;
