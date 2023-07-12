@@ -178,7 +178,7 @@ class Subscription extends React.Component {
                             :
                             null
                     }
-                    <div className={`${this.state.price > 0 || (this.state.confirmResponse && this.state.confirmResponse.success) === true ? 'blur' : 'blur-none'}`}>
+                    <div className={`${this.state.price > 0 || (this.state.confirmResponse && this.state.confirmResponse.success) === true ? 'blur' : 'blur-none'} py-16`}>
                         <p className='text-center text-2xl font-semibold text-GF-grey'>Berlangganan GolekFood</p>
                         <p className="text-center text-lg font-medium text-GF-grey">Dapatkan akses penuh fitur GolekFood dengan berlangganan</p>
                         <div className="w-2/3 m-auto my-8 grid grid-cols-3 gap-4">
