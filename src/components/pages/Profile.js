@@ -7,6 +7,7 @@ import unfavorite_icon from '../../assets/unfavorite.svg';
 import FavoriteFoodItem from '../FavoriteFoodItem';
 import api from '../../api/api';
 import apiBaseURL from '../../api/apiBaseURL';
+import edit from '../../assets/edit.svg';
 
 class Profile extends React.Component {
 	constructor(props) {
@@ -270,14 +271,19 @@ class Profile extends React.Component {
 									</label>
 									<label className="font-medium flex flex-col">
 										Password
-										<input
-											type="password"
-											name="password"
-											value={'********'}
-											onChange={this.onPasswordChangeEventHandler}
-											disabled={true}
-											className="font-light border-b-2 border-black bg-transparent outline-none"
-										/>
+										<div className='grid grid-cols-12'>
+											<input
+												type="password"
+												name="password"
+												value={'********'}
+												onChange={this.onPasswordChangeEventHandler}
+												disabled={true}
+												className="col-span-11 font-light border-b-2 border-black bg-transparent outline-none"
+											/>
+											<button className='m-auto'>
+												<img src={edit} alt='edit' />
+											</button>
+										</div>
 									</label>
 									{this.state.editMode ? (
 										<div className="flex space-x-2">
