@@ -1,5 +1,5 @@
 import React from "react";
-//import * as LottiePlayer from "@lottiefiles/lottie-player";
+import * as LottiePlayer from "@lottiefiles/lottie-player";
 import api from "../api/api";
 
 class Feedback extends React.Component {
