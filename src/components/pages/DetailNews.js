@@ -9,6 +9,7 @@ import Logo from "../Logo";
 import { useLocation } from "react-router-dom";
 import api from "../../api/api";
 import apiBaseURL from "../../api/apiBaseURL";
+import NewsItem from "../NewsItem";
 
 function formatDate(date) {
     return new Date(date).toLocaleDateString("id-ID", {
@@ -18,33 +19,28 @@ function formatDate(date) {
     })
 }
 
-// function DetailNews() {
-//     const location = useLocation();
-//     console.log(location);
-//     const [detailNews, setDetailNews] = useState(null);
-
-//     useEffect(() => {
-//         async function getDetailNews() {
-//             const response = await api.get(`news/${location.state.id}`);
-//             setDetailNews(response.data);
-//         }
-//         getDetailNews();
-//         console.log(detailNews);
-//     }, []);
-
 function DetailNews() {
     const location = useLocation();
     console.log(location);
     const [detailNews, setDetailNews] = useState(null);
+    const [newsRecommendations, setNewsRecommendations] = useState(null)
 
     useEffect(() => {
         async function getDetailNews() {
             const response = await api.get(`news/${location.state.id}`);
             setDetailNews(response.data);
-            console.log(response.data); // Memperbarui console.log setelah setDetailNews
+            console.log(response.data);
         }
         getDetailNews();
     }, [location.state.id]);
+
+    useEffect(() => {
+        async function getNewsRecommendations() {
+            const response = await api.get(`news?page=${location.state.page}`);
+            setNewsRecommendations(response.data);
+        }
+        getNewsRecommendations();
+    }, [location.state.page]);
 
     return (
         <div>
@@ -62,7 +58,29 @@ function DetailNews() {
                         </div>
                         <h2 className="text-GF-green text-2xl font-semibold text-center my-16">Baca Berita Lain</h2>
                         <div className="w-2/3 mx-auto">
-                            {dummyNews.map((news, index) => index < 3 ? news : null)}
+                            {
+                                newsRecommendations && (
+                                    <>
+                                        {
+                                            newsRecommendations.data.data.map((item, index) => (
+                                                <NewsItem
+                                                    key={item.id}
+                                                    title={item.title}
+                                                    body={item.body}
+                                                    newsImage={`${apiBaseURL}storage/image/${item.image}`}
+                                                    author={item.author.name}
+                                                    authorImage={`${apiBaseURL}storage/image/${item.author.avatar}`}
+                                                    link={''}
+                                                    state={{
+                                                        id: item.id,
+                                                        page: location.state.page,
+                                                    }}
+                                                />
+                                            ))
+                                        }
+                                    </>
+                                )
+                            }
                         </div>
                     </>
                 )

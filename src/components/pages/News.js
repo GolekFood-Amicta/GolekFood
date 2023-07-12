@@ -53,7 +53,8 @@ function News() {
                                             authorImage={`${apiBaseURL}storage/image/${item.author.avatar}`}
                                             link={'/DetailNews'}
                                             state={{
-                                                id: item.id
+                                                id: item.id,
+                                                page: page,
                                             }}
                                         />
                                     ))
