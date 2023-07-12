@@ -32,6 +32,10 @@ function DetailNews() {
             console.log(response.data);
         }
         getDetailNews();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
     }, [location.state.id]);
 
     useEffect(() => {
