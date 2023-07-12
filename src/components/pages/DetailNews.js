@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../NavBar";
-import dummyNews from "../../data/DummyNews";
 import twitter from "../../assets/social/twitter.svg";
 import linkedin from "../../assets/social/linkedin.svg";
 import instagram from "../../assets/social/instagram.svg";
