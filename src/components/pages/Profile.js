@@ -108,12 +108,13 @@ class Profile extends React.Component {
 	}
 
 	async handleSubmit(event) {
+		// event.preventDefault();
 		const formData = new FormData();
 		formData.append('name', this.state.name);
-		formData.append('email', this.state.email);
 		formData.append('address', this.state.address);
-		formData.append('password', this.state.password);
-		formData.append('file', this.state.image);
+		if (this.state.image) {
+			formData.append('file', this.state.image);
+		}
 
 		const postProfileResponse = await api.post(`user?_method=PUT`, formData, {
 			headers: {
@@ -163,7 +164,7 @@ class Profile extends React.Component {
 	}
 
 	async deleteFavoriteFood(event, index) {
-		event.preventDefault();
+		// event.preventDefault();
 
 		const unFavoriteFood = {
 			user_id: parseInt(localStorage.getItem('user_id')),
@@ -185,7 +186,7 @@ class Profile extends React.Component {
 			}
 		})
 
-		event.stopPropagation();
+		// event.stopPropagation();
 	}
 
 	render() {
@@ -292,9 +293,7 @@ class Profile extends React.Component {
 												disabled={this.state.name !== '' && this.state.address !== '' ? false : true}
 												className={`${this.state.name !== '' && this.state.address !== '' ? 'bg-GF-green' : 'bg-GF-light-grey'} transition duration-500 w-full py-4 rounded-xl font-medium text-white`}
 											>
-												<a href='/Profile'>
-													Simpan profil
-												</a>
+												Simpan profil
 											</button>
 											<button
 												onClick={this.toggleEditMode}
