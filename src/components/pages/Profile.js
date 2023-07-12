@@ -108,7 +108,7 @@ class Profile extends React.Component {
 	}
 
 	async handleSubmit(event) {
-		// event.preventDefault();
+		event.preventDefault();
 		const formData = new FormData();
 		formData.append('name', this.state.name);
 		formData.append('address', this.state.address);
@@ -130,6 +130,10 @@ class Profile extends React.Component {
 		});
 
 		console.log(formData);
+		console.log(postProfileResponse);
+		if (postProfileResponse) {
+			window.location.reload(true);
+		}
 	}
 
 	async addFavoriteFood(event, index) {
