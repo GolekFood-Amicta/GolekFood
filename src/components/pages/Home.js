@@ -50,7 +50,7 @@ function Home() {
             setFavoriteFood(response.data);
         }
         getFavoriteFood();
-    }, [])
+    }, []);
 
     return (
         <div>
@@ -119,9 +119,9 @@ function Home() {
             <section className="px-16 py-20">
                 <p className="text-center mb-16 font-semibold text-4xl text-GF-grey">Makanan <span className="text-GF-green">Favorit Pilihan</span> Pengguna</p>
                 <Carousel
-                    slides={favoriteFood && favoriteFood.data.map((item, index) => (
+                    slides={favoriteFood && favoriteFood.data.map((item, index) => index < 3 ?
                         <img src={"https://picsum.photos/500/700"} alt="favorite-food" className="rounded-3xl w-11/12  object-cover" />
-                    ))}
+                        : null)}
                     plugins={[
                         'centered',
                         'infinite',
