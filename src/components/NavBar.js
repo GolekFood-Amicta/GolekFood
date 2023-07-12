@@ -33,9 +33,11 @@ function NavBar() {
             {
                 warning === true ? <div className="z-[700] fixed backdrop-blur w-screen h-screen" /> : null
             }
-            <nav className="sticky z-[800] top-0 flex justify-between items-center backdrop-blur px-16 py-8">
-                <Logo />
-                <ul className="flex space-x-8 font-semibold">
+            <nav className="sticky z-[800] top-0 grid grid-cols-3 backdrop-blur px-16 py-8">
+                <div className="flex justify-start items-center">
+                    <Logo />
+                </div>
+                <ul className="flex space-x-8 font-semibold m-auto">
                     <li>
                         <Link to={"/"} className="text-GF-grey hover:font-extrabold focus:font-extrabold focus:text-GF-green">Beranda</Link>
                     </li>
@@ -49,7 +51,9 @@ function NavBar() {
                         <Link to={"/Data"} className="text-GF-grey hover:font-extrabold focus:font-extrabold focus:text-GF-green">Data</Link>
                     </li>
                 </ul>
-                <RightNavBarComponent />
+                <div className="flex justify-end items-center">
+                    <RightNavBarComponent />
+                </div>
             </nav>
         </>
     );
