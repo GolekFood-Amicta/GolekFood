@@ -17,18 +17,22 @@ function RightNavBarComponent() {
         async function getUser() {
             const response = await api.get(`user/${userId}`);
             setUser(response.data);
-            console.log(response.data);
         }
         getUser();
     }, [userId]);
 
+    async function logout() {
+        localStorage.clear();
+        await api.get('logout', {
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            }
+        });
+    }
 
     const showDropdown = () => {
         setDropdown(dropdown => !dropdown);
-    }
-
-    const toggleLogout = () => {
-        localStorage.clear();
     }
 
     if (!user) {
@@ -53,7 +57,7 @@ function RightNavBarComponent() {
                             </div>
                         </Link>
                     </button>
-                    <button onClick={toggleLogout} className="hover:bg-red-500 hover:bg-opacity-50 transition h-10 rounded-xl">
+                    <button onClick={logout} className="hover:bg-red-500 hover:bg-opacity-50 transition h-10 rounded-xl">
                         <a href="/">
                             <div className="w-full h-10 flex justify-center items-center">
                                 Keluar
