@@ -34,9 +34,9 @@ function FavoriteFoodItemByUser({ foodName, foodImage, fatValue, calValue, proVa
 
 function ReviewItem({ name, age, review }) {
     return (
-        <div className="rounded-3xl bg-white mx-4 px-8 pt-16 pb-8 w-full">
+        <div className="rounded-3xl bg-white mx-4 px-8 pt-16 pb-8 w-full h-96">
             <p className="text-2xl font-medium">{name}</p>
-            <p className="text-sm font-medium">{age}</p>
+            <p className="text-sm font-medium">{age} tahun</p>
             <p className="mt-4">{review}</p>
         </div>
     );
