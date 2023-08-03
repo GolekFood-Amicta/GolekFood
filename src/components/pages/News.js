@@ -35,7 +35,7 @@ function News() {
 
     return (
         <div className="mb-8">
-            <NavBar />
+            {/* <NavBar /> */}
             <div className="flex">
                 <div className="w-1/2 pl-16 pr-8 pt-8 pb-8">
                     <p className="text-sm w-1/2">Temukan berita dan informasi <span className="font-semibold">makanan sehat</span>, menarik, dan terbaru.</p>

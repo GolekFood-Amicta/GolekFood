@@ -95,12 +95,12 @@ class SignUp extends React.Component {
                     this.state.response.message === 'User berhasil teregistrasi' ? <div className="z-50 w-screen h-screen backdrop-blur fixed" /> : null
                 }
                 <div className="w-1/2">
-                    <img src={vector} alt="vector" className="fixed w-2/5 m-16" />
+                    <img src={vector} alt="vector" className="fixed w-[37%] ml-16" />
                 </div>
                 <div className="w-2/4 pr-16">
-                    <div className="text-right mt-8 mb-8">
+                    {/* <div className="text-right mt-8 mb-8">
                         <Logo />
-                    </div>
+                    </div> */}
                     <div>
                         <p className="text-2xl font-medium mt-16 mb-4">Welcome to <span className="font-bold">GolekFoods</span>, <br />Sign Up to Continue </p>
                         <p className="text-sm font-medium">Mulai pengalaman sehatmu dengan <span className="font-bold">GolekFoods</span></p>

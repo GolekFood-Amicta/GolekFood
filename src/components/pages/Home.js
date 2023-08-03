@@ -128,14 +128,6 @@ class Home extends React.Component {
         })
     }
 
-    // useEffect(() => {
-    //     async function getFavoriteFood() {
-    //         const response = await api.get('favourite');
-    //         setFavoriteFood(response.data);
-    //     }
-    //     getFavoriteFood();
-    // }, []);
-
     closeSubscribeInfo() {
         this.setState(() => {
             return {
@@ -171,7 +163,7 @@ class Home extends React.Component {
     render() {
         return (
             <div>
-                <NavBar />
+                {/* <NavBar /> */}
                 {
                     this.state.response && this.state.response.success === true ? <SubscribeNewsInfo close={this.closeSubscribeInfo} className={'z-[999] fixed shadow m-auto top-0 bottom-0 right-0 left-0 bg-white w-1/4 h-fit rounded-3xl p-8'} /> : null
                 }

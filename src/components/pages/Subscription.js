@@ -89,7 +89,7 @@ class Subscription extends React.Component {
         console.log(this.state.price);
         return (
             <div>
-                <NavBar />
+                {/* <NavBar /> */}
                 <form onSubmit={this.handleConfirmPayment}>
                     {
                         this.state.price > 0

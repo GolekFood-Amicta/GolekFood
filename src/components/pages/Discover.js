@@ -284,7 +284,7 @@ class Discover extends React.Component {
 
         return (
             <div>
-                <NavBar />
+                {/* <NavBar /> */}
                 {this.state.showFeedback ? (
                     <Feedback toggle={this.toggleShowFeedback} />
                 ) : null}

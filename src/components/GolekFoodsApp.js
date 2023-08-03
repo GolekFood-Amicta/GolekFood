@@ -11,10 +11,12 @@ import Data from "./pages/Data";
 import SurveyPurpose from "./pages/SurveyPurpose";
 import SurveyData from "./pages/SurveyData";
 import Subscription from "./pages/Subscription";
+import NavBar from "./NavBar";
 
 function GolekFoodsApp() {
   return (
     <BrowserRouter basename="/">
+      <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/discover" element={<Discover />} />

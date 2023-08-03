@@ -71,12 +71,12 @@ class SignIn extends React.Component {
         return (
             <div className="flex" >
                 <div className="w-1/2">
-                    <img src={vector} alt="vector" className="fixed w-2/5 m-16" />
+                    <img src={vector} alt="vector" className="fixed w-[36%] ml-16" />
                 </div>
                 <div className="w-2/4 pr-16">
-                    <div className="text-right mt-8 mb-8">
+                    {/* <div className="text-right mt-8 mb-8">
                         <Logo />
-                    </div>
+                    </div> */}
                     <div>
                         <p className="text-2xl font-medium mt-16 mb-4">Welcome to <span className="font-bold">GolekFoods</span>, <br />Sign In to Continue </p>
                         <p className="text-sm font-medium">Tidak punya akun? <Link to={"/SignUp"}><span className="underline hover:font-semibold hover:text-GF-green">Buat akun baru</span></Link></p>
@@ -102,7 +102,7 @@ class SignIn extends React.Component {
                             </button>
                             {
                                 localStorage.getItem('token') && (
-                                    <Navigate to={'/Discover'} replace={true} />
+                                    <Navigate to={this.state.response && this.state.response.data.user.already_survey == 0 ? '/Survey-Purpose' : '/Discover'} replace={true} />
                                 )
                             }
                         </form>

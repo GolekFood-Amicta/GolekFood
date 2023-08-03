@@ -28,7 +28,7 @@ function Data() {
 
 	return (
 		<div className="mb-8">
-			<NavBar />
+			{/* <NavBar /> */}
 
 			<div className="sticky top-[100px] backdrop-blur w-full flex justify-center items-center space-x-4">
 				<input

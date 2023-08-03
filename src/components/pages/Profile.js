@@ -168,8 +168,6 @@ class Profile extends React.Component {
 	}
 
 	async deleteFavoriteFood(event, index) {
-		// event.preventDefault();
-
 		const unFavoriteFood = {
 			user_id: parseInt(localStorage.getItem('user_id')),
 			food_id: parseInt(this.state.favoriteResponse.data[index].food_id),
@@ -189,14 +187,12 @@ class Profile extends React.Component {
 				isFavoriteFood: false,
 			}
 		})
-
-		// event.stopPropagation();
 	}
 
 	render() {
 		return (
 			<div>
-				<NavBar />
+				{/* <NavBar /> */}
 				<div className="flex mb-8">
 					<div className="w-1/3 px-16">
 						{this.state.getProfileResponse && (

@@ -47,7 +47,7 @@ function DetailNews() {
 
     return (
         <div>
-            <NavBar />
+            {/* <NavBar /> */}
             {
                 detailNews && (
                     <>
